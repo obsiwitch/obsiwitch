@@ -2,7 +2,7 @@
 
 ## Attribution
 
-Parts of this model uses:
+Parts of this model use:
 
 * [Elf Girl](https://sketchfab.com/models/52f2e84961b94760b7805c178890d644)
 by [halloween](https://sketchfab.com/yellow09)
