@@ -1,38 +1,24 @@
 /* General */
+:root {
+    --white:   #ABB2BF;
+    --black1:  #282C34; --black2:  #2c3039;
+    --grey1:   #4b5263; --grey2:   #5C6370;
+    --red1:    #C84065; --red2:    #F26C91;
+    --yellow1: #E5C07B; --yellow2: #D19A66;
+    --blue1:   #6985D7; --blue2:   #A2C1F5;
+    --green1:  #80D468; --green2:  #A3F2A0;
+    --purple1: #C86AD4; --purple2: #D2A2F5;
+}
 
 body {
-    font-family: sans-serif;
-    line-height: 1.4;
-    color: #444;
-
-    margin: auto;
-    padding: 0 15px;
-    max-width: 50em;
+    background-color: var(--black1);
+    font-family: monospace;
+    color: var(--white);
 }
 
-/* Headings */
-
-h1, h2, h3, h4, h5, h6 {
-    line-height: 1.2;
-    font-weight: normal;
-}
-
-/* Header */
-
-header h1 {
-    font-weight: lighter;
-}
-
-/* Paragraphs */
-
-p {
-    text-align: justify;
-}
-
-/* Links */
 
 a {
-    color: #8066B3;
+    color: var(--purple2);
     text-decoration: none;
 }
 
@@ -40,30 +26,28 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Lists */
+.comment { color: var(--grey2); }
+.user    { color: var(--red1); }
+.host    { color: var(--red2); }
+.path    { color: var(--blue1); }
 
-ul.l1, ul.l2 {
-    list-style-type: none;
-    padding-left: 0;
+/* Terminal */
+.terminal {
+    background-color: var(--black2);
+    border: 1px dashed var(--white);
 }
 
-ul.l1 > li {
-    border-top: 1px solid #DDD;
-    padding: 5px 0;
+.terminal > * {
+    padding: 0.5em;
+    margin: 0;
 }
 
-ul.l1 > li:last-child {
-    border-bottom: 1px solid #DDD;
+.terminal header {
+    border-bottom: 1px dashed var(--white);
 }
 
-ul.l2 > li {
-    border: 0;
-}
-
-ul.l2 > li:before {
-    content: "├─ ";
-}
-
-ul.l2 > li:last-child:before {
-    content: "└─ ";
+.terminal pre {
+    max-width: 80ch;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
