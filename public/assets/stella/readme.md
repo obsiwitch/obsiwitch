@@ -1,5 +1,7 @@
 # Stella by Obsidienne
 
+![](1.png)
+
 ## Attribution
 
 Parts of this model use:
