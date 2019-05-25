@@ -11,8 +11,9 @@
 }
 
 body {
-    background-color: var(--black1);
+    background: var(--black1);
     font-family: monospace;
+    line-height: 1.4;
     color: var(--white);
 }
 
@@ -25,26 +26,46 @@ a:hover {
     text-decoration: underline;
 }
 
-.comment { color: var(--grey2); }
-.user    { color: var(--red1); }
-.host    { color: var(--red2); }
-.path    { color: var(--blue1); }
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cmnt { color: var(--grey2); }
+.user { color: var(--red1); }
+.host { color: var(--red2); }
+.path { color: var(--blue1); }
+.repo { color: var(--blue2); }
+
 
 /* Terminal */
 .terminal {
     background: var(--black2);
     border: 1px dashed var(--white);
-    max-width: 100ch;
+    max-width: 80ch;
     margin: auto;
 }
 
-.terminal > * {
-    padding: 0.5em;
-    margin: 0;
+.terminal header {
+    padding: 0.25em 0.5em;
+    border-bottom: 1px dashed var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+}
+.terminal header:after {
+    content: "— □ 🗙";
 }
 
-.terminal header {
-    border-bottom: 1px dashed var(--white);
+.terminal section {
+    padding: 0.5em;
+}
+.terminal section > :first-child {
+    margin-top: 0;
+}
+.terminal section > :last-child {
+    margin-bottom: 0;
 }
 
 .terminal pre {
