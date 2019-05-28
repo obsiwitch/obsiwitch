@@ -8,10 +8,12 @@
     --blue1:   #6985D7; --blue2:   #A2C1F5;
     --green1:  #80D468; --green2:  #A3F2A0;
     --purple1: #C86AD4; --purple2: #D2A2F5;
+
+    height: 100%;
 }
 
 body {
-    background: var(--black1);
+    background: url("bg.svg");
     font-family: monospace;
     line-height: 1.4;
     color: var(--white);
