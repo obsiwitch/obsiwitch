@@ -11,3 +11,5 @@ pandoc 'pages/index.md' \
     --standalone --template='assets/template.html'
 
 [[ "$*" == *--debug* ]] && php -S localhost:8000 -t public/
+
+exit 0
