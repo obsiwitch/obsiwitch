@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <title>Obsidienne - $pagetitle$</title>
+
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+
+<body><main>
+<header><a href="/">⬡bsidienne</a></header>
+
+<article>
+$if(title)$
+<header>
+<h1>$title$</h1>
+<time>$date$</time>
+</header>
+$endif$
+
+$if(toc)$
+<nav>
+$table-of-contents$
+</nav>
+$endif$
+
+$body$
+</article>
+</main></body>
+</html>

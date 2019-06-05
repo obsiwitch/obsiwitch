@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="56">
     <style>
-        #bg  { fill: #2c3039; }
-        #hex { fill: #282C34; }
+        #hex { fill: hsl(220, 15%, 18%); }
+        #bg  { fill: hsl(220, 15%, 20%); }
     </style>
 
     <defs>

@@ -1,9 +1,12 @@
+image: debian:testing-slim
+
+before_script:
+    - apt update
+    - apt -y install pandoc ruby-sass
+
 pages:
-  stage: deploy
-  script:
-    - echo ''
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
+    stage: deploy
+    script: ./generate.sh
+    artifacts:
+        paths: public
+        only: master
