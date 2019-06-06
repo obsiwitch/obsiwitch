@@ -1,2 +1,4 @@
 .sass-cache
-public
+public/assets/style.scss
+public/posts/list.yml
+public/posts.html

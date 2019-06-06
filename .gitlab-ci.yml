@@ -1,12 +1,7 @@
-image: debian:testing-slim
-
-before_script:
-    - apt update
-    - apt -y install pandoc sassc
-
 pages:
     stage: deploy
-    script: src/generate.sh
+    script:
+        - echo ''
     artifacts:
         paths:
             - public
