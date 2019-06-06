@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta content="width=device-width, initial-scale=1" name="viewport">
-
     <title>Obsidienne - $pagetitle$</title>
-
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 
 <body><main>
 <header><a href="/">⬡bsidienne</a></header>
-
 <article>
+$for(include-before)$
+$include-before$
+$endfor$
+
 $if(title)$
 <header>
 <h1>$title$</h1>
+$if(date)$
 <time>$date$</time>
+$endif$
 </header>
 $endif$
 
@@ -28,6 +31,10 @@ $table-of-contents$
 $endif$
 
 $body$
+
+$for(include-after)$
+$include-after$
+$endfor$
 </article>
 </main></body>
 </html>

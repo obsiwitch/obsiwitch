@@ -2,11 +2,11 @@ image: debian:testing-slim
 
 before_script:
     - apt update
-    - apt -y install pandoc ruby-sass
+    - apt -y install pandoc sassc
 
 pages:
     stage: deploy
-    script: ./generate.sh
+    script: src/generate.sh
     artifacts:
         paths:
             - public
