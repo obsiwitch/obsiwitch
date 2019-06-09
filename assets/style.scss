@@ -41,6 +41,15 @@ a {
     &:hover { text-decoration: underline; }
 }
 
+svg.icon {
+    width: 0.95em;
+    height: 0.95em;
+    vertical-align: -0.125em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
 main {
     @include box($background: $black2, $margin: auto);
     max-width: 80ch;
@@ -48,6 +57,7 @@ main {
         font-size: 2em;
         font-variant: small-caps;
         border-bottom: 1px solid $purple2;
+        a:hover { text-decoration: none; }
     }
 }
 

@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 
-<body><main>
-<header><a href="/">⬡bsidienne</a></header>
+<body>
+<main>
+<header>
+<a href="/">
+    <svg class="icon"><use href="/assets/feather.svg#hexagon"/></svg>bsidienne
+</a>
+</header>
+
 <article>
 $for(include-before)$
 $include-before$
@@ -36,5 +42,8 @@ $for(include-after)$
 $include-after$
 $endfor$
 </article>
-</main></body>
+
+</main>
+</body>
+
 </html>
