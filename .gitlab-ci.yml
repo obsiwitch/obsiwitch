@@ -1,7 +1,10 @@
+image: archlinux/base
+
 pages:
     stage: deploy
     script:
-        - echo ''
+        - pacman --noconfirm -Sy pandoc sassc python-setuptools yq
+        - ./generate.sh
     artifacts:
         paths:
             - public

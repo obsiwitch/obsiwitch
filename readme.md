@@ -10,5 +10,5 @@
 ## Build
 
 ~~~sh
-> src/generate.sh [--clean] [--debug] [--server]
+> generate.sh [--clean] [--debug] [--server]
 ~~~
