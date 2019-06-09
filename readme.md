@@ -9,5 +9,5 @@
 ## Build
 
 ~~~sh
-> src/generate.sh [--clean] [--debug]
+> src/generate.sh [--clean] [--debug] [--server]
 ~~~

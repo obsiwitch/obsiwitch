@@ -13,16 +13,15 @@ function generate_posts() {
     for post in posts/*.md; do
         echo '-' >> "$list"
         echo " file: /posts/$(basename "${post%.*}.html")" >> "$list"
-        sed -ne '/---/,/---/{p}' "$post" \
+        sed -ne '/---/,/---/p' "$post" \
             | sed -e '1d;$d' -e 's/^/ /' \
             >> "$list"
     done
     tmp=$(mktemp)
-    cat "$list" \
-        | yq '.post |= sort_by(.date)' \
-        | yq '.post |= reverse' \
-        | yq '.' --yml-output \
-        > "$tmp"
+    yq '.post |= sort_by(.date)' "$list" \
+    | yq '.post |= reverse' \
+    | yq '.' --yml-output \
+    > "$tmp"
     mv "$tmp" "$list"
 
     for post in posts/*.md; do
@@ -66,7 +65,7 @@ generate_posts
 generate_pages
 generate_assets
 
-[[ "$*" == *--debug* ]] && {
+[[ "$*" == *--server* ]] && {
     python -m http.server 8000 \
            --bind 'localhost' \
            --directory 'public/'
