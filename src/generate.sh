@@ -3,10 +3,11 @@
 set -o nounset -o errexit -o pipefail
 [[ "$*" == *--debug* ]] && set -x
 
-function generate_posts() {
-    echo '# Generate posts'
+function generate_lst() {
+    echo '# Generate list of posts'
     mkdir -p 'public/posts'
 
+    # generate list
     local list='public/posts/list.yml'
     echo 'title: posts' > "$list"
     echo 'post:' >> "$list"
@@ -17,12 +18,19 @@ function generate_posts() {
             | sed -e '1d;$d' -e 's/^/ /' \
             >> "$list"
     done
+
+    # sort by date
     tmp=$(mktemp)
     yq '.post |= sort_by(.date)' "$list" \
     | yq '.post |= reverse' \
     | yq '.' --yml-output \
     > "$tmp"
     mv "$tmp" "$list"
+}
+
+function generate_posts() {
+    echo '# Generate posts'
+    mkdir -p 'public/posts'
 
     for post in posts/*.md; do
         pandoc "$post" \
@@ -61,6 +69,7 @@ function generate_assets() {
 
 [[ "$*" == *--clean* ]] && rm -rf 'public'
 
+generate_lst
 generate_posts
 generate_pages
 generate_assets
