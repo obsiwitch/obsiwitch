@@ -27,7 +27,7 @@ $purple2: hsl(288, 60%, 77%);
 }
 
 body {
-    background: url("bg.svg");
+    background: $black2 url("bg.svg");
     font-family: monospace;
     line-height: 1.6;
     color: $white;
