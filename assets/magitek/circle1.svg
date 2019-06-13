@@ -16,7 +16,6 @@
 #cmd1 {
     animation:
         opacity 4s linear 0s both,
-        appearccw 2s linear 0s both,
         cmd1init 2s linear 0s both,
         spin 10s linear 2s infinite;
 }
@@ -24,7 +23,6 @@
     transform: scale(0.70);
     animation:
         opacity 4s linear 0s both,
-        appearcw 2s linear 0s both,
         cmd2init 2s linear 0s both,
         cmd2run 10s linear 2s infinite;
 }
@@ -84,20 +82,6 @@
         stroke-dasharray: 200%;
         stroke-dashoffset: 0%;
     }
-}
-@keyframes appearcw {
-    0%   { clip-path: polygon(50% 50%, 0% 50%, 0% 50%, 50% 50%, 50% 50%,  50% 50%,  50%  50%, 50%  50%); }
-    25%  { clip-path: polygon(50% 50%, 0% 50%, 0%  0%, 50%  0%, 50%  0%,  50% 50%,  50%  50%, 50%  50%); }
-    50%  { clip-path: polygon(50% 50%, 0% 50%, 0%  0%, 50%  0%, 100% 0%, 100% 50%, 100%  50%, 50%  50%); }
-    75%  { clip-path: polygon(50% 50%, 0% 50%, 0%  0%, 50%  0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%); }
-    100% { clip-path: polygon( 0% 50%, 0% 50%, 0%  0%, 50%  0%, 100% 0%, 100% 50%, 100% 100%,  0% 100%); }
-}
-@keyframes appearccw {
-    0%   { clip-path: polygon(50% 50%, 0% 50%, 0%  50%, 50%  50%,  50%  50%,  50% 50%,  50% 50%, 50% 50%); }
-    25%  { clip-path: polygon(50% 50%, 0% 50%, 0% 100%, 50% 100%,  50% 100%,  50% 50%,  50% 50%, 50% 50%); }
-    50%  { clip-path: polygon(50% 50%, 0% 50%, 0% 100%, 50% 100%, 100% 100%, 100% 50%, 100% 50%, 50% 50%); }
-    75%  { clip-path: polygon(50% 50%, 0% 50%, 0% 100%, 50% 100%, 100% 100%, 100% 50%, 100%  0%, 50%  0%); }
-    100% { clip-path: polygon( 0% 50%, 0% 50%, 0% 100%, 50% 100%, 100% 100%, 100% 50%, 100%  0%,  0%  0%); }
 }
 @keyframes cmd1init {
     from { transform: scale(0.0) rotate(0deg); }
