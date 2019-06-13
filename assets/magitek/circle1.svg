@@ -99,30 +99,29 @@
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
 }
-
 </style>
 
 <defs>
-    <path id="c1path" d="M 100 300 A 50 50 0 1 1 500 300 A 50 50 0 1 1 100 300"/>
-    <path id="c2path" d="M 100 300 A 50 50 0 1 0 500 300 A 50 50 0 1 0 100 300"/>
-    <path id="hexpath" d="M 300 480 L 150 400 L 150 300 L 150 200 L 300 120 L 450 200 L 450 300 L 450 400 Z"/>
+    <path id="cpath" d="M 100 300 A 50 50 0 1 0 500 300 A 50 50 0 1 0 100 300"/>
+    <path id="hexpath" d="M 300 480 L 150 400 L 150 300 L 150 200 L 300 120
+        L 450 200 L 450 300 L 450 400 Z"/>
 </defs>
 
 <use id="hex1" class="hex" href="#hexpath"/>
 <use id="hex2" class="hex" href="#hexpath"/>
-<use id="circle10" class="circle" href="#c1path"/>
-<use id="circle11" class="circle" href="#c1path"/>
-<use id="circle12" class="circle" href="#c1path"/>
-<use id="circle20" class="circle" href="#c2path"/>
-<use id="circle21" class="circle" href="#c2path"/>
+<use id="circle10" class="circle" href="#cpath"/>
+<use id="circle11" class="circle" href="#cpath"/>
+<use id="circle12" class="circle" href="#cpath"/>
+<use id="circle20" class="circle" href="#cpath"/>
+<use id="circle21" class="circle" href="#cpath"/>
 <text id="cmd1" class="cmd" textLength="210%">
-    <textPath href="#c2path">
+    <textPath href="#cpath">
     [luna][nanoha][~/public][master] > ./generate.sh
     --clean &amp;&amp; git commit -am 'generate - posts'&#160;
     </textPath>
 </text>
 <text id="cmd2" class="cmd" textLength="210%">
-    <textPath href="#c2path">
+    <textPath href="#cpath">
     [1e20114] (head -> master, origin/master, origin/head)
     generate - posts&#160;
     </textPath>
