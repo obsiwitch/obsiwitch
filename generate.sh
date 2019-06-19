@@ -13,7 +13,7 @@ function generate_lst() {
     echo 'post:' >> "$list"
     for post in posts/*.md; do
         echo '-' >> "$list"
-        echo " file: /posts/$(basename "${post%.*}.html")" >> "$list"
+        echo " path: /posts/$(basename "${post%.*}.html")" >> "$list"
         sed -ne '/---/,/---/p' "$post" \
             | sed -e '1d;$d' -e 's/^/ /' \
             >> "$list"
@@ -35,7 +35,7 @@ function generate_posts() {
     for post in posts/*.md; do
         pandoc "$post" \
             --output="public/posts/$(basename "${post%.*}.html")" \
-            --standalone --template='templates/layout.html' \
+            --template='templates/layout.html' \
             --toc --number-sections
     done
 }
@@ -49,14 +49,14 @@ function generate_pages() {
         touch 'public/posts/list.yml'
     )
     pandoc '/dev/null' \
-        --output='public/posts.html' \
-        --template='templates/posts.html' \
-        --metadata-file='public/posts/list.yml'
-
-    pandoc 'pages/index.md' \
-        --output='public/index.html' \
-        --standalone --template='templates/layout.html' \
-        --include-after-body='public/posts.html'
+        --template='templates/index.html' \
+        --metadata-file='public/posts/list.yml'\
+        --output='public/index.html'
+    pandoc '/dev/null' \
+        --template='templates/layout.html' \
+        --metadata='pagetitle:Index' \
+        --include-after-body='public/index.html' \
+        --output='public/index.html'
 }
 
 function generate_assets() {

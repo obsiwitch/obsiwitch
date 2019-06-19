@@ -1,8 +1,4 @@
----
-pagetitle: Index
----
-
-# Projects
+<h1>Projects</h1>
 
 <pre class="sourceCode">
 ├── <svg class="icon"><use href="/assets/feather.svg#git-branch"/></svg> Repositories
@@ -11,3 +7,11 @@ pagetitle: Index
 └── <svg class="icon"><use href="/assets/feather.svg#image"/></svg> Graphics
     └── <a href="/assets/magitek/circle1.svg">magic circle<img class="preview" src="/assets/magitek/circle1.svg"/></a>
 </pre>
+
+<h1>Posts</h1>
+
+<nav class="posts"><ul>
+$for(post)$
+<li><date>$post.date$</date> <a href="$post.path$">$post.title$</a></li>
+$endfor$
+</ul></nav>
