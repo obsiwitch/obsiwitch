@@ -6,40 +6,37 @@ date: 2019-06-02
 # Introduction
 
 [Fzf](https://github.com/junegunn/fzf) is a command-line fuzzy finder.
-Some scripts are shipped with fzf to add [keybindings](https://github.com/junegunn/fzf#key-bindings-for-command-line)
+Scripts are shipped with fzf to add [keybindings](https://github.com/junegunn/fzf#key-bindings-for-command-line)
 and [fuzzy completion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh)
 to a shell. To use them in bash you can source them in your `~/.bashrc`.
 
-The [bash fuzzy completion script](https://github.com/junegunn/fzf/blob/0030d184481686384676537857614977e1fd2f94/shell/completion.bash)
-first saves existing completion specifications, e.g. functions
-defined by the [bash-completion](https://github.com/scop/bash-completion)
-package. Then, it replaces the original specifications with new ones using the
+[Bash fuzzy completion](https://github.com/junegunn/fzf/blob/0030d184481686384676537857614977e1fd2f94/shell/completion.bash)
+can be triggered with `**<TAB>`. The script first saves existing completion
+specifications (e.g. functions defined by the
+[bash-completion](https://github.com/scop/bash-completion) package). Then, it
+replaces the original specifications with new ones using the
 [complete](https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html)
 builtin (e.g. `complete -F _fzf_path_completion cd`).
 
-If the `**` trigger sequence is found, fuzzy completion is used (e.g. `cd
-../**<TAB>`). Else, the original completion function for the corresponding
-command is used (e.g. `cd <TAB>`).
-
 Doing things this way means only a few commands support fuzzy completion, and
 other commands need to be added [manually](https://github.com/junegunn/fzf#supported-commands)
-using complete.
+using `complete`.
 
 # Script
 
-I wanted fuzzy path completion for every commands and to keep the ability to
+I wanted fuzzy path completion for every command while keeping the ability to
 call the default bash completion, so I wrote my own script.
 
-I could not use the complete builtin with a completion function since we saw
-it forces us to write a specification for each command we want to use. I
-could not access the [`COMP_*`](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-COMP_005fCWORD)
-shell variables inside my script either. Keybindings in bash are created using the
+I couldn't use `complete` since we saw it forces us to write a specification
+for each command. So, I couldn't access the
+[`COMP_*`](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-COMP_005fCWORD)
+shell variables inside my script either. Keybindings in bash are created using
+the
 [bind](https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html#index-bind)
 builtin. We can bind our own shell command using `bind -x '"keyseq":
 "shell-command"'`. Binding a shell function this way gives us access to the
 `READLINE_LINE` and `READLINE_POINT` variables inside it, allowing us to access
-the line currently typed in the shell without using the `COMP_*`
-variables.
+the line currently typed in the shell without using the `COMP_*` variables.
 
 <blockquote>
 ```
@@ -55,11 +52,12 @@ READLINE_POINT
 </blockquote>
 
 I also needed to find a way to call readline's completion without having to
-manually call a completion function. To do this we can bind the complete
-readline function to the `\e[0n` key sequence (VT100 ANSI escape sequence for
-`Response: terminal is OK`). Then we print `\e[5n` (VT100 ANSI escape sequence
-for `Device status report`). The terminal then answers with `\e[0n`, which in
-turns activates readline's completion. [[1]](https://unix.stackexchange.com/a/217390)
+manually call a completion function. To do this we can bind the
+[complete readline function](https://www.gnu.org/software/bash/manual/html_node/Commands-For-Completion.html#index-complete-_0028TAB_0029)
+to the `\e[0n` key sequence (VT100 ANSI escape sequence for `Response: terminal
+is OK`). Then we print `\e[5n` (VT100 ANSI escape sequence for `Device status
+report`). The terminal then answers with `\e[0n`, which in turns activates
+readline's completion. [[1]](https://unix.stackexchange.com/a/217390)
 
 You can find below a minimal version of the script. The full version is
 available [here](https://gitlab.com/Obsidienne/dotfiles/blob/6b4c389cf62b62d4fc3448586480c1cc58c3419a/cli/shell/fzf.sh).
