@@ -22,7 +22,7 @@ Doing things this way means only a few commands support fuzzy completion, and
 other commands need to be added [manually](https://github.com/junegunn/fzf#supported-commands)
 using `complete`.
 
-# Script
+# Fuzzy path completion
 
 I wanted fuzzy path completion for every command while keeping the ability to
 call the default bash completion, so I wrote my own script.
@@ -65,7 +65,7 @@ available [here](https://gitlab.com/Obsidienne/dotfiles/blob/6b4c389cf62b62d4fc3
 ```sh
 # Minimal fuzzy completion on trigger sequence '@', else use readline's
 # completion.
-function _fzf_complete() {
+_fzf_complete() {
     local words=( ${READLINE_LINE:0:$READLINE_POINT} )
     local remainder=( ${READLINE_LINE:$READLINE_POINT} )
 
@@ -88,4 +88,30 @@ function _fzf_complete() {
 
 # bind _fzf_complete to <TAB>
 bind -x '"\C-i": "_fzf_complete"'
+```
+
+# Fuzzy path selection on keybinding (2019-07-23)
+
+After a few weeks of using the script in the previous section, I decided to
+simplify it by calling fzf with a keybinding instead of calling it on tab
+completion. The easiest solution would have been to `source
+/usr/share/fzf/key-bindings.bash` but I did not need all the keybindings and the
+default options did not satisfy me so I rewrote it. You can find the script
+below.
+
+```sh
+_fzf_select() {
+    local lineleft=${READLINE_LINE:0:$READLINE_POINT}
+    local lineright=${READLINE_LINE:$READLINE_POINT}
+    local selected=$(
+        fd . --print0 \
+        | fzf --reverse --multi --read0 --print0 --exit-0 \
+        | xargs -0 --no-run-if-empty printf '%q '
+    )
+    [[ -z "$selected" ]] && return
+    READLINE_LINE="${lineleft}${selected}${lineright}"
+    READLINE_POINT=$(( $READLINE_POINT + ${#selected} ))
+}
+# bind _fzf_select to CTRL+F
+bind -x '"\C-f": "_fzf_select"'
 ```
