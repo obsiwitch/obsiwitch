@@ -115,3 +115,19 @@ _fzf_select() {
 # bind _fzf_select to CTRL+F
 bind -x '"\C-f": "_fzf_select"'
 ```
+
+```txt
+$ cat <CTRL+F>
+> exp .sh
+  720/23328 (2)
+ >Documents/CompSci/Experiments/Shell/scope.sh
+  Documents/CompSci/Experiments/Shell/heredoc.sh
+  Documents/CompSci/Experiments/progress/run.sh
+  Documents/CompSci/Experiments/progress/pv/run.sh
+  Documents/CompSci/Experiments/progress/tqdmpy/run.sh
+  Documents/CompSci/Experiments/progress/tqdmlua/run.sh
+  Documents/CompSci/Experiments/progress/tqdmcpp/run.sh
+ >Documents/CompSci/Experiments/virtualization/gitlabci/run.sh
+  Documents/CompSci/Experiments/Shell/readline-input-injection/completion.sh
+$ cat Documents/CompSci/Experiments/Shell/scope.sh Documents/CompSci/Experiments/virtualization/gitlabci/run.sh
+```
