@@ -52,7 +52,7 @@ svg.icon {
 
 main {
     @include box($background: $black2, $margin: auto);
-    max-width: 80ch;
+    max-width: 90ch;
     > header {
         font-size: 2em;
         font-variant: small-caps;
