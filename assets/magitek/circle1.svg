@@ -19,14 +19,14 @@
 }
 #cmd1 {
     animation:
-        opacity 4s linear 0s both,
+        opacity 1s linear 0s both,
         cmd1init 2s linear 0s both,
         spin 10s linear 2s infinite;
 }
 #cmd2 {
     transform: scale(0.70);
     animation:
-        opacity 4s linear 0s both,
+        opacity 1s linear 0s both,
         cmd2init 2s linear 0s both,
         cmd2run 10s linear 2s infinite;
 }
