@@ -4,10 +4,9 @@
 
 * [pandoc](https://pandoc.org/)
 * [yq](https://github.com/mikefarah/yq)
-* [feather](https://feathericons.com/) (included)
 
 ## Build
 
 ~~~sh
-> generate.sh [--clean] [--serve]
+> generate.sh [--serve]
 ~~~
