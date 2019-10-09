@@ -1,9 +1,7 @@
 #!/bin/bash
 
-function generate_posts() {
-    # generate list
+function generate_lst() {
     echo '# Generate list of posts'
-    mkdir -p 'public/posts'
 
     local list='public/posts/list.yml'
     echo 'title: posts' > "$list"
@@ -23,10 +21,10 @@ function generate_posts() {
     | yq '.' --yml-output \
     > "$tmp"
     mv "$tmp" "$list"
+}
 
-    # generate posts
+function generate_posts() {
     echo '# Generate posts'
-    mkdir -p 'public/posts'
 
     for post in public/posts/*.md; do
         pandoc "$post" \
@@ -38,7 +36,6 @@ function generate_posts() {
 
 function generate_pages() {
     echo '# Generate pages'
-    mkdir -p 'public'
 
     pandoc '/dev/null' \
         --template='public/templates/index.html' \
@@ -51,13 +48,29 @@ function generate_pages() {
         --output='public/index.html'
 }
 
-generate_posts
-generate_pages
+function generate() {
+    generate_lst
+    generate_posts
+    generate_pages
+}
 
-[[ "$*" == *--serve* ]] && {
+function serve() {
     python -m http.server 8000 \
            --bind 'localhost' \
            --directory 'public/'
+}
+
+generate
+
+[[ "$*" == *--preview* ]] && {
+    serve &
+    while inotifywait \
+        --recursive 'public/' \
+        --event='modify' --event='move' \
+        --event='create' --event='delete' \
+    ; do
+        generate
+    done
 }
 
 exit 0
