@@ -74,7 +74,7 @@ generate_posts
 generate_pages
 generate_assets
 
-[[ "$*" == *--server* ]] && {
+[[ "$*" == *--serve* ]] && {
     python -m http.server 8000 \
            --bind 'localhost' \
            --directory 'public/'

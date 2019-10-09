@@ -1,10 +1,9 @@
-image: archlinux/base
+image: alpine:latest
 
 pages:
     stage: deploy
     script:
-        - pacman --noconfirm -Sy pandoc sassc python-setuptools yq
-        - ./generate.sh
+        - echo 'deploy'
     artifacts:
         paths:
             - public
