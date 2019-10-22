@@ -67,8 +67,8 @@ generate
     while inotifywait \
         --recursive 'public/' \
         --event='modify' --event='move' \
-        --event='create' --event='delete' \
-    ; do
+        --event='create' --event='delete'
+    do
         generate
     done
 }

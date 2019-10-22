@@ -8,7 +8,7 @@ date: 2019-06-02
 [Fzf](https://github.com/junegunn/fzf) is a command-line fuzzy finder.
 Scripts are shipped with fzf to add [keybindings](https://github.com/junegunn/fzf#key-bindings-for-command-line)
 and [fuzzy completion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh)
-to a shell. To use them in bash you can source them in your `~/.bashrc`.
+to your shell. To use them in bash you can source them in your `~/.bashrc`.
 
 [Bash fuzzy completion](https://github.com/junegunn/fzf/blob/0030d184481686384676537857614977e1fd2f94/shell/completion.bash)
 can be triggered with `**<TAB>`. The script first saves existing completion
@@ -18,11 +18,11 @@ replaces the original specifications with new ones using the
 [complete](https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html)
 builtin (e.g. `complete -F _fzf_path_completion cd`).
 
-Doing things this way means only a few commands support fuzzy completion, and
-other commands need to be added [manually](https://github.com/junegunn/fzf#supported-commands)
-using `complete`.
+Only a few commands support fuzzy completion by default, and other commands need
+to be added [manually](https://github.com/junegunn/fzf#supported-commands) using
+`complete`.
 
-# Fuzzy path completion
+# Fuzzy path completion (2019-06-02)
 
 I wanted fuzzy path completion for every command while keeping the ability to
 call the default bash completion, so I wrote my own script.
@@ -52,15 +52,12 @@ READLINE_POINT
 </blockquote>
 
 I also needed to find a way to call readline's completion without having to
-manually call a completion function. To do this we can bind the
+manually call a specific completion function. To do this we can bind the
 [complete readline function](https://www.gnu.org/software/bash/manual/html_node/Commands-For-Completion.html#index-complete-_0028TAB_0029)
 to the `\e[0n` key sequence (VT100 ANSI escape sequence for `Response: terminal
 is OK`). Then we print `\e[5n` (VT100 ANSI escape sequence for `Device status
 report`). The terminal then answers with `\e[0n`, which in turns activates
 readline's completion. [[1]](https://unix.stackexchange.com/a/217390)
-
-You can find below a minimal version of the script. The full version is
-available [here](https://gitlab.com/Obsidienne/dotfiles/blob/6b4c389cf62b62d4fc3448586480c1cc58c3419a/cli/shell/fzf.sh).
 
 ```sh
 # Minimal fuzzy completion on trigger sequence '@', else use readline's
@@ -95,9 +92,8 @@ bind -x '"\C-i": "_fzf_complete"'
 After a few weeks of using the script in the previous section, I decided to
 simplify it by calling fzf with a keybinding instead of calling it on tab
 completion. The easiest solution would have been to `source
-/usr/share/fzf/key-bindings.bash` but I did not need all the keybindings and the
-default options did not satisfy me so I rewrote it. You can find the script
-below.
+/usr/share/fzf/key-bindings.bash` but I wasn't satisfied with the defaults and
+rewrote it.
 
 ```sh
 _fzf_select() {

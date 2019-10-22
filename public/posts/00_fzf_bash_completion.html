@@ -24,16 +24,16 @@
 <nav>
 <ul>
 <li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
-<li><a href="#fuzzy-path-completion"><span class="toc-section-number">2</span> Fuzzy path completion</a></li>
+<li><a href="#fuzzy-path-completion-2019-06-02"><span class="toc-section-number">2</span> Fuzzy path completion (2019-06-02)</a></li>
 <li><a href="#fuzzy-path-selection-on-keybinding-2019-07-23"><span class="toc-section-number">3</span> Fuzzy path selection on keybinding (2019-07-23)</a></li>
 </ul>
 </nav>
 
 <h1 id="introduction"><span class="header-section-number">1</span> Introduction</h1>
-<p><a href="https://github.com/junegunn/fzf">Fzf</a> is a command-line fuzzy finder. Scripts are shipped with fzf to add <a href="https://github.com/junegunn/fzf#key-bindings-for-command-line">keybindings</a> and <a href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">fuzzy completion</a> to a shell. To use them in bash you can source them in your <code>~/.bashrc</code>.</p>
+<p><a href="https://github.com/junegunn/fzf">Fzf</a> is a command-line fuzzy finder. Scripts are shipped with fzf to add <a href="https://github.com/junegunn/fzf#key-bindings-for-command-line">keybindings</a> and <a href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">fuzzy completion</a> to your shell. To use them in bash you can source them in your <code>~/.bashrc</code>.</p>
 <p><a href="https://github.com/junegunn/fzf/blob/0030d184481686384676537857614977e1fd2f94/shell/completion.bash">Bash fuzzy completion</a> can be triggered with <code>**&lt;TAB&gt;</code>. The script first saves existing completion specifications (e.g. functions defined by the <a href="https://github.com/scop/bash-completion">bash-completion</a> package). Then, it replaces the original specifications with new ones using the <a href="https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html">complete</a> builtin (e.g. <code>complete -F _fzf_path_completion cd</code>).</p>
-<p>Doing things this way means only a few commands support fuzzy completion, and other commands need to be added <a href="https://github.com/junegunn/fzf#supported-commands">manually</a> using <code>complete</code>.</p>
-<h1 id="fuzzy-path-completion"><span class="header-section-number">2</span> Fuzzy path completion</h1>
+<p>Only a few commands support fuzzy completion by default, and other commands need to be added <a href="https://github.com/junegunn/fzf#supported-commands">manually</a> using <code>complete</code>.</p>
+<h1 id="fuzzy-path-completion-2019-06-02"><span class="header-section-number">2</span> Fuzzy path completion (2019-06-02)</h1>
 <p>I wanted fuzzy path completion for every command while keeping the ability to call the default bash completion, so I wrote my own script.</p>
 <p>I couldn’t use <code>complete</code> since we saw it forces us to write a specification for each command. So, I couldn’t access the <a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-COMP_005fCWORD"><code>COMP_*</code></a> shell variables inside my script either. Keybindings in bash are created using the <a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html#index-bind">bind</a> builtin. We can bind our own shell command using <code>bind -x '"keyseq": "shell-command"'</code>. Binding a shell function this way gives us access to the <code>READLINE_LINE</code> and <code>READLINE_POINT</code> variables inside it, allowing us to access the line currently typed in the shell without using the <code>COMP_*</code> variables.</p>
 <blockquote>
@@ -46,8 +46,7 @@ READLINE_POINT
     for use with &quot;bind -x&quot; (see SHELL BUILTIN COMMANDS below).</code></pre>
 <a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-READLINE_005fLINE">Bash Reference manual - Shell Variables</a>
 </blockquote>
-<p>I also needed to find a way to call readline’s completion without having to manually call a completion function. To do this we can bind the <a href="https://www.gnu.org/software/bash/manual/html_node/Commands-For-Completion.html#index-complete-_0028TAB_0029">complete readline function</a> to the <code>\e[0n</code> key sequence (VT100 ANSI escape sequence for <code>Response: terminal is OK</code>). Then we print <code>\e[5n</code> (VT100 ANSI escape sequence for <code>Device status report</code>). The terminal then answers with <code>\e[0n</code>, which in turns activates readline’s completion. <a href="https://unix.stackexchange.com/a/217390">[1]</a></p>
-<p>You can find below a minimal version of the script. The full version is available <a href="https://gitlab.com/Obsidienne/dotfiles/blob/6b4c389cf62b62d4fc3448586480c1cc58c3419a/cli/shell/fzf.sh">here</a>.</p>
+<p>I also needed to find a way to call readline’s completion without having to manually call a specific completion function. To do this we can bind the <a href="https://www.gnu.org/software/bash/manual/html_node/Commands-For-Completion.html#index-complete-_0028TAB_0029">complete readline function</a> to the <code>\e[0n</code> key sequence (VT100 ANSI escape sequence for <code>Response: terminal is OK</code>). Then we print <code>\e[5n</code> (VT100 ANSI escape sequence for <code>Device status report</code>). The terminal then answers with <code>\e[0n</code>, which in turns activates readline’s completion. <a href="https://unix.stackexchange.com/a/217390">[1]</a></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Minimal fuzzy completion on trigger sequence &#39;@&#39;, else use readline&#39;s</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># completion.</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="fu">_fzf_complete()</span> <span class="kw">{</span></span>
@@ -74,7 +73,7 @@ READLINE_POINT
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co"># bind _fzf_complete to &lt;TAB&gt;</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="bu">bind</span> -x <span class="st">&#39;&quot;\C-i&quot;: &quot;_fzf_complete&quot;&#39;</span></span></code></pre></div>
 <h1 id="fuzzy-path-selection-on-keybinding-2019-07-23"><span class="header-section-number">3</span> Fuzzy path selection on keybinding (2019-07-23)</h1>
-<p>After a few weeks of using the script in the previous section, I decided to simplify it by calling fzf with a keybinding instead of calling it on tab completion. The easiest solution would have been to <code>source /usr/share/fzf/key-bindings.bash</code> but I did not need all the keybindings and the default options did not satisfy me so I rewrote it. You can find the script below.</p>
+<p>After a few weeks of using the script in the previous section, I decided to simplify it by calling fzf with a keybinding instead of calling it on tab completion. The easiest solution would have been to <code>source /usr/share/fzf/key-bindings.bash</code> but I wasn’t satisfied with the defaults and rewrote it.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">_fzf_select()</span> <span class="kw">{</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">local</span> <span class="va">lineleft=${READLINE_LINE:0:$READLINE_POINT}</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>    <span class="bu">local</span> <span class="va">lineright=${READLINE_LINE:$READLINE_POINT}</span></span>
