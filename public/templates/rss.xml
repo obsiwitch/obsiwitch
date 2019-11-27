@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+
+<title>Obsidienne - Posts</title>
+<link>https://obsidienne.gitlab.io</link>
+<description></description>
+
+$for(post)$
+<item>
+    <title>$post.title$</title>
+    <link>https://obsidienne.gitlab.io/$post.path$</link>
+    <pubDate>$post.rfcdate$</pubDate>
+    <guid>https://obsidienne.gitlab.io/$post.path$#$post.date$</guid>
+</item>
+$endfor$
+
+</channel>
+</rss>

@@ -3,24 +3,36 @@
 function generate_lst() {
     echo '# Generate list of posts'
 
+    # generate yaml list
     local list='public/posts/list.yml'
     echo 'title: posts' > "$list"
     echo 'post:' >> "$list"
     for post in public/posts/*.md; do
-        echo '-' >> "$list"
-        echo " path: /posts/$(basename "${post%.md}").html" >> "$list"
-        sed -ne '/---/,/---/p' "$post" \
-            | sed -e '1d;$d' -e 's/^/ /' \
-            >> "$list"
+        local metadata=$(
+            echo "- path: /posts/$(basename "${post%.md}").html"
+            sed -ne '/---/,/---/p' "$post" \
+            | sed -e '1d;$d' -e 's/^/  /'
+        )
+        local hdate=$(echo "$metadata" | yq --raw-output '.[0].date')
+        local rfcdate=$(date --rfc-822 --date="$hdate")
+        metadata+=$'\n'"  rfcdate: $rfcdate"
+        echo "$metadata" >> "$list"
     done
 
     # sort list by date
-    tmp=$(mktemp)
     yq '.post |= sort_by(.date)' "$list" \
     | yq '.post |= reverse' \
     | yq '.' --yml-output \
-    > "$tmp"
-    mv "$tmp" "$list"
+    | sponge "$list"
+}
+
+function generate_feed() {
+    echo '# Generate feed'
+
+    pandoc '/dev/null' \
+        --template='public/templates/rss.xml' \
+        --metadata-file='public/posts/list.yml'\
+        --output='public/rss.xml'
 }
 
 function generate_posts() {
@@ -50,6 +62,7 @@ function generate_pages() {
 
 function generate() {
     generate_lst
+    generate_feed
     generate_posts
     generate_pages
 }

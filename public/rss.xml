@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+
+<title>Obsidienne - Posts</title>
+<link>https://obsidienne.gitlab.io</link>
+<description></description>
+
+<item>
+    <title>Restore Android 3-button navigation</title>
+    <link>https://obsidienne.gitlab.io//posts/01_android_3button.html</link>
+    <pubDate>Thu, 25 Jul 2019 00:00:00 +0200</pubDate>
+    <guid>https://obsidienne.gitlab.io//posts/01_android_3button.html#2019-07-25</guid>
+</item>
+<item>
+    <title>Fuzzy bash completion</title>
+    <link>https://obsidienne.gitlab.io//posts/00_fzf_bash_completion.html</link>
+    <pubDate>Sun, 02 Jun 2019 00:00:00 +0200</pubDate>
+    <guid>https://obsidienne.gitlab.io//posts/00_fzf_bash_completion.html#2019-06-02</guid>
+</item>
+
+</channel>
+</rss>
