@@ -5,8 +5,8 @@ date: 2019-06-02
 
 # Introduction
 
-[Fzf](https://github.com/junegunn/fzf) is a command-line fuzzy finder.
-Scripts are shipped with fzf to add [keybindings](https://github.com/junegunn/fzf#key-bindings-for-command-line)
+[Fzf](https://github.com/junegunn/fzf) is a command-line fuzzy finder. It's packaged
+with scripts to add [keybindings](https://github.com/junegunn/fzf#key-bindings-for-command-line)
 and [fuzzy completion](https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh)
 to your shell. To use them in bash you can source them in your `~/.bashrc`.
 
@@ -18,7 +18,7 @@ replaces the original specifications with new ones using the
 [complete](https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html)
 builtin (e.g. `complete -F _fzf_path_completion cd`).
 
-Only a few commands support fuzzy completion by default, and other commands need
+The script only support a few commands by default. Thus, other commands need
 to be added [manually](https://github.com/junegunn/fzf#supported-commands) using
 `complete`.
 
@@ -30,7 +30,7 @@ call the default bash completion, so I wrote my own script.
 I couldn't use `complete` since we saw it forces us to write a specification
 for each command. So, I couldn't access the
 [`COMP_*`](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-COMP_005fCWORD)
-shell variables inside my script either. Keybindings in bash are created using
+shell variables inside my script anymore. Keybindings in bash are created using
 the
 [bind](https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html#index-bind)
 builtin. We can bind our own shell command using `bind -x '"keyseq":

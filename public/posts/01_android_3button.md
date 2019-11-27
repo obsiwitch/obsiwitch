@@ -30,5 +30,5 @@ $ reboot
 ```
 
 To restore the default behaviour, you can simply re-enable the Quickstep
-launcher through the GUI (`Settings -> Apps`) or by running `pm enable
-com.android.launcher3` in an ADB remote shell and then rebooting your phone.
+launcher through the GUI (`Settings -> Apps`) or run `pm enable
+com.android.launcher3` in an ADB remote shell and then reboot your phone.
