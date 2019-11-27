@@ -27,6 +27,10 @@ a {
 a:hover {
     text-decoration: underline;
 }
+a.muted {
+    color: var(--grey2);
+    font-size: 0.75em;
+}
 
 main {
     background: var(--black2);

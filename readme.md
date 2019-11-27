@@ -9,5 +9,5 @@
 ## Build
 
 ~~~sh
-> generate.sh [--preview]
+> ./generate.sh [--preview]
 ~~~
