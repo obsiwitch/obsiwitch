@@ -78,17 +78,23 @@ READLINE_POINT
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">_fzf_select()</span> <span class="kw">{</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>    <span class="bu">local</span> <span class="va">lineleft=${READLINE_LINE:0:$READLINE_POINT}</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>    <span class="bu">local</span> <span class="va">lineright=${READLINE_LINE:$READLINE_POINT}</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="bu">local</span> <span class="va">selected=$(</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>        <span class="ex">fd</span> . --print0 \</span>
-<span id="cb3-6"><a href="#cb3-6"></a>        <span class="kw">|</span> <span class="ex">fzf</span> --reverse --multi --read0 --print0 --exit-0 \</span>
-<span id="cb3-7"><a href="#cb3-7"></a>        <span class="kw">|</span> <span class="fu">xargs</span> -0 --no-run-if-empty printf <span class="st">&#39;%q &#39;</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>    <span class="va">)</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>    [[ <span class="ex">-z</span> <span class="st">&quot;</span><span class="va">$selected</span><span class="st">&quot;</span> ]] <span class="kw">&amp;&amp;</span> <span class="bu">return</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>    <span class="va">READLINE_LINE=</span><span class="st">&quot;</span><span class="va">${lineleft}${selected}${lineright}</span><span class="st">&quot;</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>    <span class="va">READLINE_POINT=$((</span> <span class="va">$READLINE_POINT</span> + <span class="va">${#selected}</span> <span class="va">))</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="kw">}</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># bind _fzf_select to CTRL+F</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="bu">bind</span> -x <span class="st">&#39;&quot;\C-f&quot;: &quot;_fzf_select&quot;&#39;</span></span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co"># 1. retrieve recursive list of files and directories (by default fzf only</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="co">#    search through files)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co"># 2. run fzf w/ multi-select enabled</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="co"># 3. quote the results in a way that can be reused as shell input</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="bu">local</span> <span class="va">selected=$(</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="ex">fd</span> . --print0 \</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        <span class="kw">|</span> <span class="ex">fzf</span> --reverse --multi --read0 --print0 --exit-0 \</span>
+<span id="cb3-12"><a href="#cb3-12"></a>        <span class="kw">|</span> <span class="fu">xargs</span> -0 --no-run-if-empty printf <span class="st">&#39;%q &#39;</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="va">)</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>    [[ <span class="ex">-z</span> <span class="st">&quot;</span><span class="va">$selected</span><span class="st">&quot;</span> ]] <span class="kw">&amp;&amp;</span> <span class="bu">return</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="va">READLINE_LINE=</span><span class="st">&quot;</span><span class="va">${lineleft}${selected}${lineright}</span><span class="st">&quot;</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    <span class="va">READLINE_POINT=$((</span> <span class="va">$READLINE_POINT</span> + <span class="va">${#selected}</span> <span class="va">))</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="kw">}</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co"># bind _fzf_select to CTRL+F</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="bu">bind</span> -x <span class="st">&#39;&quot;\C-f&quot;: &quot;_fzf_select&quot;&#39;</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1"></a>$ cat &lt;CTRL+F&gt;</span>
 <span id="cb4-2"><a href="#cb4-2"></a>&gt; exp .sh</span>
 <span id="cb4-3"><a href="#cb4-3"></a>  720/23328 (2)</span>

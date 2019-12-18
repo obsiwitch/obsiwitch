@@ -99,12 +99,18 @@ rewrote it.
 _fzf_select() {
     local lineleft=${READLINE_LINE:0:$READLINE_POINT}
     local lineright=${READLINE_LINE:$READLINE_POINT}
+
+    # 1. retrieve recursive list of files and directories (by default fzf only
+    #    search through files)
+    # 2. run fzf w/ multi-select enabled
+    # 3. quote the results in a way that can be reused as shell input
     local selected=$(
         fd . --print0 \
         | fzf --reverse --multi --read0 --print0 --exit-0 \
         | xargs -0 --no-run-if-empty printf '%q '
     )
     [[ -z "$selected" ]] && return
+
     READLINE_LINE="${lineleft}${selected}${lineright}"
     READLINE_POINT=$(( $READLINE_POINT + ${#selected} ))
 }
