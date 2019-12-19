@@ -7,6 +7,12 @@
 <description></description>
 
 <item>
+    <title>File tags</title>
+    <link>https://obsidienne.gitlab.io//posts/03_tags.html</link>
+    <pubDate>Sat, 11 Apr 2020 00:00:00 +0200</pubDate>
+    <guid>https://obsidienne.gitlab.io//posts/03_tags.html#2020-04-11</guid>
+</item>
+<item>
     <title>Test .gitlab-ci.yml</title>
     <link>https://obsidienne.gitlab.io//posts/02_gitlabci.html</link>
     <pubDate>Thu, 27 Feb 2020 00:00:00 +0100</pubDate>

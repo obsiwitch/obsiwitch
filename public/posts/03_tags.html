@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Obsidienne - File tags</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="Posts" href="/rss.xml" />
+</head>
+
+<body>
+<main>
+<header>
+<a href="/">obsidienne</a>
+</header>
+
+<article>
+
+<header>
+<h1>File tags</h1>
+<time>2020-04-11</time>
+</header>
+
+<nav>
+<ul>
+<li><a href="#requirements"><span class="toc-section-number">1</span> Requirements</a></li>
+<li><a href="#links"><span class="toc-section-number">2</span> Links</a></li>
+<li><a href="#filename-tags"><span class="toc-section-number">3</span> Filename tags</a></li>
+</ul>
+</nav>
+
+<h1 data-number="1" id="requirements"><span class="header-section-number">1</span> Requirements</h1>
+<ul>
+<li>File tagging tool for any file type</li>
+<li>Usable both from cli and gui: list, add, remove and search tags</li>
+<li>Tags stored in the files (no external database)</li>
+</ul>
+<h1 data-number="2" id="links"><span class="header-section-number">2</span> Links</h1>
+<ul>
+<li><a href="https://superuser.com/questions/81563/whats-a-good-solution-for-file-tagging-in-linux">What’s a good solution for file-tagging in linux?</a></li>
+<li><a href="https://www.lesbonscomptes.com/pages/extattrs.html">Extended attributes: the good, the not so good, the bad.</a></li>
+<li><a href="https://www.tagsistant.net/">Tagsistant</a></li>
+</ul>
+<h1 data-number="3" id="filename-tags"><span class="header-section-number">3</span> Filename tags</h1>
+<p>After discarding a few solutions, I settled for tags in filenames in the following form: <code>filename.tag1.tag2.long_tag.ext</code>. It’s simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers). I also wrote a <a href="https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags">script</a> to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Example: find all tags used in a directory</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>$ <span class="ex">dottags</span> ~/Graphics/Illustrations/</span>
+<span id="cb1-3"><a href="#cb1-3"></a>[<span class="ex">...</span>]</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">25</span> .mp4</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="ex">28</span> .indoors</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="ex">33</span> .pose</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="ex">43</span> .city</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="ex">64</span> .shading</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="ex">99</span> .png</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="ex">165</span> .scene</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="ex">263</span> .jpg</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="ex">355</span> .character</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Example: fuzzy find tags</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>$ <span class="ex">fzf</span> --reverse --multi</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="op">&gt;</span> <span class="ex">.character</span> .scene .city</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="ex">69/27688</span> (3)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="op">&gt;</span><span class="ex">..f7e3dbc0f370da0c0aa9bd2b95b810286f207c8e.character.scene.3d.palace.city.jpg</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="op">&gt;</span><span class="ex">..strations/1db5138ca81480b768727b0a45254450d8e59c72.character.scene.city.jpg</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="ex">..ustrations/6d6c02c117eaae0e73f348ed033603dd2578d436.character.scene.city.jpg</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>  <span class="ex">..tions/9d0f1c9145156139470e231a40f0082726c59a53.character.scene.rain.city.jpg</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="op">&gt;</span><span class="ex">..ons/32803b9ca54fca5ed9445b3644c34d4dc8db5860.character.scene.witch.city.jpg</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>  [<span class="ex">...</span>]</span></code></pre></div>
+
+</article>
+
+</main>
+</body>
+
+</html>
