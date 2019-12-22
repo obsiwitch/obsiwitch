@@ -29,6 +29,6 @@ $ settings put secure system_navigation_keys_enabled 1
 $ reboot
 ```
 
-To restore the default behaviour, you can simply re-enable the Quickstep
-launcher through the GUI (`Settings -> Apps`) or run `pm enable
-com.android.launcher3` in an ADB remote shell and then reboot your phone.
+To restore the default behaviour, you can re-enable the Quickstep launcher
+through the GUI (`Settings -> Apps`) or run `pm enable com.android.launcher3` in
+an ADB remote shell and then reboot your phone.
