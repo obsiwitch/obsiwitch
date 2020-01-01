@@ -17,9 +17,7 @@ remote shell.
 # Disable the default launcher (Quickstep com.android.launcher3). Please note
 # that you cannot disable the Quickstep launcher from the GUI (Settings -> Apps),
 # since the 'Disable' button is greyed out.
-# Depending on your device, you might have a different launcher installed.
-# To find which package you need to disable, you can list the currently
-# installed ones using the `pm list packages` command.
+# N.B. You can list the installed packages by using `pm list packages`.
 $ pm disable-user com.android.launcher3
 
 # Enable software navigation keys

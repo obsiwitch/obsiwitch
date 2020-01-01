@@ -30,16 +30,14 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Disable the default launcher (Quickstep com.android.launcher3). Please note</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="co"># that you cannot disable the Quickstep launcher from the GUI (Settings -&gt; Apps),</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co"># since the &#39;Disable&#39; button is greyed out.</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Depending on your device, you might have a different launcher installed.</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># To find which package you need to disable, you can list the currently</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># installed ones using the `pm list packages` command.</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>$ <span class="ex">pm</span> disable-user com.android.launcher3</span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Enable software navigation keys</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>$ <span class="ex">settings</span> put secure system_navigation_keys_enabled 1</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Reboot the phone</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>$ <span class="ex">reboot</span></span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># N.B. You can list the installed packages by using `pm list packages`.</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>$ <span class="ex">pm</span> disable-user com.android.launcher3</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Enable software navigation keys</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>$ <span class="ex">settings</span> put secure system_navigation_keys_enabled 1</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># Reboot the phone</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>$ <span class="ex">reboot</span></span></code></pre></div>
 <p>To restore the default behaviour, you can re-enable the Quickstep launcher through the GUI (<code>Settings -&gt; Apps</code>) or run <code>pm enable com.android.launcher3</code> in an ADB remote shell and then reboot your phone.</p>
 
 </article>
