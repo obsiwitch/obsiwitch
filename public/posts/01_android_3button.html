@@ -26,19 +26,31 @@
 
 <p>I tested the following on my Android One device (Nokia 2.2, Android 9) to restore the old 3-button navigation (back, home, overview) instead of using the 2-button gesture navigation.</p>
 <p>N.B. It seems the next version of Android (Android Q) will default to 3-button navigation when using a custom launcher. <a href="https://android-developers.googleblog.com/2019/07/android-q-beta-5-update.html">[1]</a></p>
-<p>Issue the following commands in an <a href="https://developer.android.com/studio/command-line/adb">ADB</a> remote shell.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Disable the default launcher (Quickstep com.android.launcher3). Please note</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># that you cannot disable the Quickstep launcher from the GUI (Settings -&gt; Apps),</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># since the &#39;Disable&#39; button is greyed out.</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># N.B. You can list the installed packages by using `pm list packages`.</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>$ <span class="ex">pm</span> disable-user com.android.launcher3</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Enable software navigation keys</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a>$ <span class="ex">settings</span> put secure system_navigation_keys_enabled 1</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># Reboot the phone</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>$ <span class="ex">reboot</span></span></code></pre></div>
-<p>To restore the default behaviour, you can re-enable the Quickstep launcher through the GUI (<code>Settings -&gt; Apps</code>) or run <code>pm enable com.android.launcher3</code> in an ADB remote shell and then reboot your phone.</p>
+<ol type="1">
+<li>Install another launcher on your phone (e.g. <a href="https://play.google.com/store/apps/details?id=com.hdeva.launcher&amp;hl=en">Lean Launcher</a>)</li>
+<li>Enable USB debugging on your phone (<code>Settings -&gt; System -&gt; Advanced -&gt; Developer options -&gt; enable USB debugging</code>) and connect it to your computer</li>
+<li>Issue the following commands</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Start adb daemon and a remote shell. Accept if a USB debugging authorization</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># dialog appears on your phone.</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">computer</span>$ sudo adb start-server</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">computer</span>$ adb shell</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Disable the default launcher (Quickstep com.android.launcher3). Please note</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># that you cannot disable the Quickstep launcher from the GUI (Settings -&gt; Apps),</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># since the &#39;Disable&#39; button is greyed out.</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># N.B. You can list the installed packages by using `pm list packages`.</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="ex">adb</span>$ pm disable-user com.android.launcher3</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Enable software navigation keys</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="ex">adb</span>$ settings put secure system_navigation_keys_enabled 1</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Reboot the phone</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="ex">adb</span>$ reboot</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="co"># Stop adb daemon</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="ex">computer</span>$ adb kill-server</span></code></pre></div>
+<p>To restore the default behaviour, you can re-enable the Quickstep launcher through the GUI (<code>Settings -&gt; Apps</code>) or run <code>pm enable com.android.launcher3</code> in an adb remote shell and then reboot your phone.</p>
 
 </article>
 
