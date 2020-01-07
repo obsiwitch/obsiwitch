@@ -17,8 +17,8 @@ navigation when using a custom launcher. [[1]](https://android-developers.google
 ```sh
 # Start adb daemon and a remote shell. Accept if a USB debugging authorization
 # dialog appears on your phone.
-computer$ sudo adb start-server
-computer$ adb shell
+$ sudo adb start-server
+$ adb shell
 
 # Disable the default launcher (Quickstep com.android.launcher3). Please note
 # that you cannot disable the Quickstep launcher from the GUI (Settings -> Apps),
@@ -33,7 +33,7 @@ adb$ settings put secure system_navigation_keys_enabled 1
 adb$ reboot
 
 # Stop adb daemon
-computer$ adb kill-server
+$ adb kill-server
 ```
 
 To restore the default behaviour, you can re-enable the Quickstep launcher
