@@ -10,8 +10,8 @@ function generate_lst() {
     for post in public/posts/*.md; do
         local metadata=$(
             echo "- path: /posts/$(basename "${post%.md}").html"
-            sed -ne '/---/,/---/p' "$post" \
-            | sed -e '1d;$d' -e 's/^/  /'
+            # find 1st pattern, then print lines until 2nd pattern found
+            sed -ne '/^---$/ { :loop n; /^---$/q; s/^/  /; p; b loop; }' "$post"
         )
         local hdate=$(echo "$metadata" | yq --raw-output '.[0].date')
         local rfcdate=$(date --rfc-822 --date="$hdate")
