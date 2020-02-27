@@ -7,6 +7,12 @@
 <description></description>
 
 <item>
+    <title>Test .gitlab-ci.yml</title>
+    <link>https://obsidienne.gitlab.io//posts/02_gitlabci.html</link>
+    <pubDate>Thu, 27 Feb 2020 00:00:00 +0100</pubDate>
+    <guid>https://obsidienne.gitlab.io//posts/02_gitlabci.html#2020-02-27</guid>
+</item>
+<item>
     <title>Restore Android 3-button navigation</title>
     <link>https://obsidienne.gitlab.io//posts/01_android_3button.html</link>
     <pubDate>Thu, 25 Jul 2019 00:00:00 +0200</pubDate>

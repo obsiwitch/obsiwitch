@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Obsidienne - Test .gitlab-ci.yml</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="Posts" href="/rss.xml" />
+</head>
+
+<body>
+<main>
+<header>
+<a href="/">obsidienne</a>
+</header>
+
+<article>
+
+<header>
+<h1>Test .gitlab-ci.yml</h1>
+<time>2020-02-27</time>
+</header>
+
+
+<p>You can find below a simple way to test external GitLab CI/CD setups in a new repository.</p>
+<ol type="1">
+<li>Create a new git repository and commit the 2 files below.</li>
+<li>Execute the script with the path/URL to the repository you want to test. The repository’s content will be copied without its history into the <code>repository/</code> directory and committed.</li>
+<li>Push to a new GitLab repository.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># .gitlab-ci.yml</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">include</span><span class="kw">:</span><span class="at"> </span><span class="st">&#39;/repository/.gitlab-ci.yml&#39;</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">before_script</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> cp -r repository/. .</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># run.sh</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">set</span> <span class="ex">-o</span> errexit -o nounset</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$#</span><span class="st">&quot;</span> <span class="ot">-lt</span> 1<span class="kw"> ]]</span> <span class="kw">&amp;&amp;</span> <span class="kw">{</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="bu">echo</span> <span class="st">&quot;Usage: </span><span class="va">$0</span><span class="st"> &lt;local/remote repository&gt;&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="bu">echo</span> <span class="st">&quot;e.g. </span><span class="va">$0</span><span class="st"> file:///home/luna/Documents/Web/obsidienne.gitlab.io&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="bu">echo</span> <span class="st">&quot;     </span><span class="va">$0</span><span class="st"> https://gitlab.com/Obsidienne/obsidienne.gitlab.io.git&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="kw">}</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># script exits if the repository does not exist</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="fu">git</span> ls-remote <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> <span class="op">&gt;</span> /dev/null</span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">rm</span> -rf <span class="st">&#39;repository&#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">git</span> clone --depth=1 <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span> <span class="st">&#39;repository&#39;</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="va">reponame=$(</span><span class="fu">basename</span> <span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span><span class="va">)</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="va">message=$(</span><span class="fu">git</span> -C <span class="st">&#39;repository&#39;</span> log --format=<span class="st">&#39;%h %s&#39;</span> -1<span class="va">)</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="fu">rm</span> -rf <span class="st">&#39;repository/.git&#39;</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="fu">git</span> add <span class="st">&#39;repository/&#39;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="fu">git</span> commit -m <span class="st">&quot;</span><span class="va">$reponame</span><span class="st"> - </span><span class="va">$message</span><span class="st">&quot;</span></span></code></pre></div>
+
+</article>
+
+</main>
+</body>
+
+</html>
