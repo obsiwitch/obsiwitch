@@ -18,7 +18,7 @@ replaces the original specifications with new ones using the
 [complete](https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html)
 builtin (e.g. `complete -F _fzf_path_completion cd`).
 
-The script only support a few commands by default. Thus, other commands need
+The script only supports a few commands by default. Thus, other commands need
 to be added [manually](https://github.com/junegunn/fzf#supported-commands) using
 `complete`.
 

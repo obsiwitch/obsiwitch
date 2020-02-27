@@ -10,7 +10,8 @@ repository.
 2. Execute the script with the path/URL to the repository you want to test. The
    repository's content will be copied without its history into the
    `repository/` directory and committed.
-3. Push to a new GitLab repository.
+3. Push to GitLab.
+4. Go back to step 2 if you want to test another setup.
 
 ~~~yml
 # .gitlab-ci.yml
