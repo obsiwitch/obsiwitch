@@ -23,9 +23,15 @@
 <time>2019-07-25</time>
 </header>
 
+<nav>
+<ul>
+<li><a href="#android-9-2019-07-25"><span class="toc-section-number">1</span> Android 9 (2019-07-25)</a></li>
+<li><a href="#android-10-2020-03-19"><span class="toc-section-number">2</span> Android 10 (2020-03-19)</a></li>
+</ul>
+</nav>
 
-<p>I tested the following on my Android One device (Nokia 2.2, Android 9) to restore the old 3-button navigation (back, home, overview) instead of using the 2-button gesture navigation.</p>
-<p>N.B. It seems the next version of Android (Android Q) will default to 3-button navigation when using a custom launcher. <a href="https://android-developers.googleblog.com/2019/07/android-q-beta-5-update.html">[1]</a></p>
+<h1 data-number="1" id="android-9-2019-07-25"><span class="header-section-number">1</span> Android 9 (2019-07-25)</h1>
+<p>I tested the following on my Android One device (Nokia 2.2, Android 9) to restore the old 3-button navigation (back, home, overview) instead of using the 2-button navigation.</p>
 <ol type="1">
 <li>Install another launcher on your phone (e.g. <a href="https://play.google.com/store/apps/details?id=com.hdeva.launcher&amp;hl=en">Lean Launcher</a>)</li>
 <li>Enable USB debugging on your phone (<code>Settings -&gt; System -&gt; Advanced -&gt; Developer options -&gt; enable USB debugging</code>) and connect it to your computer</li>
@@ -51,6 +57,9 @@
 <span id="cb1-18"><a href="#cb1-18"></a><span class="co"># Stop adb daemon</span></span>
 <span id="cb1-19"><a href="#cb1-19"></a>$ <span class="ex">adb</span> kill-server</span></code></pre></div>
 <p>To restore the default behaviour, you can re-enable the Quickstep launcher through the GUI (<code>Settings -&gt; Apps</code>) or run <code>pm enable com.android.launcher3</code> in an adb remote shell and then reboot your phone.</p>
+<h1 data-number="2" id="android-10-2020-03-19"><span class="header-section-number">2</span> Android 10 (2020-03-19)</h1>
+<p>Android 10 defaults to 3-button navigation when using a custom launcher. Install one and then select it in <code>Settings -&gt; Apps &amp; Notifications -&gt; Default Apps -&gt; Home app</code>.</p>
+<p>If you use the default Quickstep launcher, you have the choice between 2-button navigation and gesture navigation (<code>Settings -&gt; System -&gt; Gestures -&gt; System navigation</code>).</p>
 
 </article>
 
