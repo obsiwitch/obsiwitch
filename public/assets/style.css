@@ -11,6 +11,7 @@
 
 body {
     background: var(--black2) url("bg.svg");
+    background-size: 27px;
     font-family: monospace;
     line-height: 1.6;
     color: var(--white);
