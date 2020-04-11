@@ -45,7 +45,7 @@
 </ul>
 <h1 data-number="3" id="filename-tags"><span class="header-section-number">3</span> Filename tags</h1>
 <p>After discarding a few solutions, I settled for tags in filenames in the following form: <code>filename.tag1.tag2.long_tag.ext</code>. It’s simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers). I also wrote a <a href="https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags">script</a> to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Example: find all tags used in a directory</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Example: find all the tags used in a directory</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>$ <span class="ex">dottags</span> ~/Graphics/Illustrations/</span>
 <span id="cb1-3"><a href="#cb1-3"></a>[<span class="ex">...</span>]</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="ex">25</span> .mp4</span>

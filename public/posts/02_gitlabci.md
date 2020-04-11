@@ -3,13 +3,10 @@ title: Test .gitlab-ci.yml
 date: 2020-02-27
 ---
 
-You can find below a simple way to test external GitLab CI/CD setups in a new
-repository.
+You can find below a simple way to test external GitLab CI/CD setups in a new repository.
 
 1. Create a new git repository and commit the 2 files below.
-2. Execute the script with the path/URL to the repository you want to test. The
-   repository's content will be copied without its history into the
-   `repository/` directory and committed.
+2. Execute the script with the path/URL to the repository you want to test. The repository's content will be copied without its history into the `repository/` directory and committed.
 3. Push to GitLab.
 4. Go back to step 2 if you want to test another setup.
 

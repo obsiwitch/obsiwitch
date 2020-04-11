@@ -20,7 +20,7 @@ date: 2020-04-11
 After discarding a few solutions, I settled for tags in filenames in the following form: `filename.tag1.tag2.long_tag.ext`. It's simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers).  I also wrote a [script](https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags) to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).
 
 ```sh
-# Example: find all tags used in a directory
+# Example: find all the tags used in a directory
 $ dottags ~/Graphics/Illustrations/
 [...]
 25 .mp4
