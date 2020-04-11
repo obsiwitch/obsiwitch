@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o errexit -o nounset
+
 function generate_lst() {
     echo '# Generate list of posts'
 
@@ -30,6 +32,7 @@ function generate_feed() {
     echo '# Generate feed'
 
     pandoc '/dev/null' \
+        --from='markdown' --to='plain' \
         --template='public/templates/rss.xml' \
         --metadata-file='public/posts/list.yml'\
         --output='public/rss.xml'
@@ -50,10 +53,12 @@ function generate_pages() {
     echo '# Generate pages'
 
     pandoc '/dev/null' \
+        --from='markdown' \
         --template='public/templates/index.html' \
         --metadata-file='public/posts/list.yml'\
         --output='public/index.html'
     pandoc '/dev/null' \
+        --from='markdown' \
         --template='public/templates/layout.html' \
         --metadata='pagetitle:Index' \
         --include-after-body='public/index.html' \
