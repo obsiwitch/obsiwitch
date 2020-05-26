@@ -13,7 +13,6 @@ date: 2020-04-11
 
 * [What's a good solution for file-tagging in linux?](https://superuser.com/questions/81563/whats-a-good-solution-for-file-tagging-in-linux)
 * [Extended attributes: the good, the not so good, the bad.](https://www.lesbonscomptes.com/pages/extattrs.html)
-* [Tagsistant](https://www.tagsistant.net/)
 
 # Filename tags
 

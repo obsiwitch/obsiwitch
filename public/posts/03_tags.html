@@ -41,7 +41,6 @@
 <ul>
 <li><a href="https://superuser.com/questions/81563/whats-a-good-solution-for-file-tagging-in-linux">What’s a good solution for file-tagging in linux?</a></li>
 <li><a href="https://www.lesbonscomptes.com/pages/extattrs.html">Extended attributes: the good, the not so good, the bad.</a></li>
-<li><a href="https://www.tagsistant.net/">Tagsistant</a></li>
 </ul>
 <h1 data-number="3" id="filename-tags"><span class="header-section-number">3</span> Filename tags</h1>
 <p>After discarding a few solutions, I settled for tags in filenames in the following form: <code>filename.tag1.tag2.long_tag.ext</code>. It’s simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers). I also wrote a <a href="https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags">script</a> to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).</p>
