@@ -52,6 +52,8 @@
 #circle22 {
     scale: 0.625;
     fill: url("#hexpattern");
+    animation:
+        opacity 2s linear 0s both;
 }
 
 .hex {
