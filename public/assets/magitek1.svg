@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Author: Obsidienne - https://obsidienne.gitlab.io/
-    Inspiration: Magical Girl Lyrical Nanoha magic circle
-    References:
-        * MDN SVG: https://developer.mozilla.org/en-US/docs/Web/SVG
-        * CSS clip-path maker: https://bennettfeely.com/clippy/
-        * SVG Path Builder: https://codepen.io/anthonydugois/full/mewdyZ
-        * SvgPathEditor: https://yqnn.github.io/svg-path-editor/
+Author: Obsidienne - https://obsidienne.gitlab.io/
+Inspiration: Magical Girl Lyrical Nanoha magic circle
+References:
+    * MDN SVG: https://developer.mozilla.org/en-US/docs/Web/SVG
+    * CSS clip-path maker: https://bennettfeely.com/clippy/
+    * SVG Path Builder: https://codepen.io/anthonydugois/full/mewdyZ
+    * SvgPathEditor: https://yqnn.github.io/svg-path-editor/
 -->
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
 <style>

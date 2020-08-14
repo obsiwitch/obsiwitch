@@ -3,8 +3,6 @@
 set -o errexit -o nounset
 
 function generate_list() {
-    echo '# Generate list of posts'
-
     # create
     local list='public/posts/list.yml'
     echo '' > "$list"
@@ -29,8 +27,6 @@ function generate_list() {
 }
 
 function generate_feed() {
-    echo '# Generate feed'
-
     pandoc '/dev/null' \
         --from='markdown' --to='plain' \
         --template='public/templates/rss.xml' \
@@ -38,20 +34,14 @@ function generate_feed() {
         --output='public/rss.xml'
 }
 
-function generate_posts() {
-    echo '# Generate posts'
-
-    for post in public/posts/*.md; do
-        pandoc "$post" \
-            --output="${post%.md}.html" \
-            --template='public/templates/layout.html' \
-            --toc --number-sections
-    done
+function generate_post() {
+    pandoc "$1" \
+        --output="${1%.md}.html" \
+        --template='public/templates/layout.html' \
+        --toc --number-sections
 }
 
-function generate_pages() {
-    echo '# Generate pages'
-
+function generate_index() {
     pandoc '/dev/null' \
         --from='markdown' \
         --template='public/templates/index.html' \
@@ -65,30 +55,14 @@ function generate_pages() {
         --output='public/index.html'
 }
 
-function generate() {
+if [[ "$*" == *--post* ]]; then
+    generate_post "$2"
+elif [[ "$*" == *--list* ]]; then
     generate_list
+elif [[ "$*" == *--feed* ]]; then
     generate_feed
-    generate_posts
-    generate_pages
-}
-
-function serve() {
-    python -m http.server 8000 \
-           --bind 'localhost' \
-           --directory 'public/'
-}
-
-generate
-
-[[ "$*" == *--preview* ]] && {
-    serve &
-    while inotifywait \
-        --recursive 'public/' \
-        --event='modify' --event='move' \
-        --event='create' --event='delete'
-    do
-        generate
-    done
-}
-
-exit 0
+elif [[ "$*" == *--index* ]]; then
+    generate_index
+else
+    exit 1
+fi
