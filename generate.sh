@@ -10,13 +10,13 @@ function generate_lst() {
     echo 'title: posts' > "$list"
     echo 'post:' >> "$list"
     for post in public/posts/*.md; do
-        local metadata=$(
+        local metadata; metadata=$(
             echo "- path: /posts/$(basename "${post%.md}").html"
             # find 1st pattern, then print lines until 2nd pattern found
             sed -ne '/^---$/ { :loop n; /^---$/q; s/^/  /; p; b loop; }' "$post"
         )
-        local hdate=$(echo "$metadata" | yq --raw-output '.[0].date')
-        local rfcdate=$(date --rfc-822 --date="$hdate")
+        local hdate; hdate=$(echo "$metadata" | yq --raw-output '.[0].date')
+        local rfcdate; rfcdate=$(date --rfc-822 --date="$hdate")
         metadata+=$'\n'"  rfcdate: $rfcdate"
         echo "$metadata" >> "$list"
     done
