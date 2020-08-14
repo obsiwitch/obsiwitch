@@ -23,16 +23,15 @@
     fill: var(--purple);
 }
 #cmd1 {
-    scale: 1.0;
+    transform: scale(1.0);
     animation:
         opacity 2s linear 0s both,
         spin 10s linear 0s infinite;
 }
 #cmd2 {
-    scale: 0.7;
     animation:
         opacity 2s linear 0s both,
-        spin 10s linear 0s infinite reverse;
+        spincmd2 10s linear 0s infinite reverse;
 }
 
 .circle {
@@ -42,15 +41,15 @@
     filter: drop-shadow(0 0 3px var(--purple));
 }
 #circle10 {
-    scale: 1.10;
+    transform: scale(1.10);
     stroke-width: 4;
 }
-#circle11 { scale: 1.05; }
-#circle12 { scale: 0.90; }
-#circle20 { scale: 0.75; }
-#circle21 { scale: 0.625; }
+#circle11 { transform: scale(1.05); }
+#circle12 { transform: scale(0.90); }
+#circle20 { transform: scale(0.75); }
+#circle21 { transform: scale(0.625); }
 #circle22 {
-    scale: 0.625;
+    transform: scale(0.625);
     fill: url("#hexpattern");
     animation:
         opacity 2s linear 0s both;
@@ -101,8 +100,12 @@
     }
 }
 @keyframes spin {
-    from { rotate: 0deg; }
-    to   { rotate: 360deg; }
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes spincmd2 {
+    from { transform: scale(0.7) rotate(0deg); }
+    to   { transform: scale(0.7) rotate(360deg); }
 }
 </style>
 
