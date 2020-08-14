@@ -70,11 +70,11 @@ _fzf_select() {
     local lineright=${READLINE_LINE:$READLINE_POINT}
 
     # 1. retrieve recursive list of files and directories (by default fzf only
-    #    search through files)
+    #    search through files) in specified directories
     # 2. run fzf w/ multi-select enabled
     # 3. quote the results in a way that can be reused as shell input
     local selected=$(
-        fd . --print0 \
+        fd . "$@" --print0 \
         | fzf --reverse --multi --read0 --print0 --exit-0 \
         | xargs -0 --no-run-if-empty printf '%q '
     )
@@ -83,8 +83,9 @@ _fzf_select() {
     READLINE_LINE="${lineleft}${selected}${lineright}"
     READLINE_POINT=$(( $READLINE_POINT + ${#selected} ))
 }
-# bind _fzf_select to CTRL+F
-bind -x '"\C-f": "_fzf_select"'
+# bind _fzf_select to ctrl+f (current directory) and ctrl+g (home)
+bind -x '"\C-f": _fzf_select "$PWD"'
+bind -x '"\C-g": _fzf_select "$HOME"'
 ```
 
 ```txt
