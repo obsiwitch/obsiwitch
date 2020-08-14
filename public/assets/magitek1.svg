@@ -139,15 +139,18 @@
 let select = selectors => document.querySelector(selectors)
 select('#cmd1 textPath').textContent = select('script').textContent
 
+let randi = length => Math.floor(Math.random() * length)
+let choice = array => array[randi(array.length)]
+
 let symbols = "▁▂▃▄▅▆▇█▉▊▋▌▍▎▏▐░▒▓▕▖▗▘▙▚▛▜▝▞▟▀▔ "
-let choice = array => array[Math.floor(Math.random() * array.length)]
 let array = Array.from({length:130}, () => choice(symbols))
-let section = (i, j, length) => (i + j * Math.floor(length / 4)) % length
 let i = 0
 setInterval(() => {
-    array[i] = choice(symbols)
+    for (let j = 0; j &lt; 10; j++) {
+        array[randi(array.length)] = choice(symbols)
+    }
     select('#cmd2 textPath').textContent = array.join('')
     i = (i + 1) % array.length
-}, 50)
+}, 100)
 </script>
 </svg>
