@@ -2,30 +2,30 @@
 
 set -o errexit -o nounset
 
-function generate_lst() {
+function generate_list() {
     echo '# Generate list of posts'
 
-    # generate yaml list
+    # create
     local list='public/posts/list.yml'
-    echo 'title: posts' > "$list"
-    echo 'post:' >> "$list"
+    echo '' > "$list"
+
+    # populate
     for post in public/posts/*.md; do
         local metadata; metadata=$(
-            echo "- path: /posts/$(basename "${post%.md}").html"
             # find 1st pattern, then print lines until 2nd pattern found
             sed -ne '/^---$/ { :loop n; /^---$/q; s/^/  /; p; b loop; }' "$post"
         )
-        local hdate; hdate=$(echo "$metadata" | yq --raw-output '.[0].date')
-        local rfcdate; rfcdate=$(date --rfc-822 --date="$hdate")
+        local hdate; hdate=$(sed -n 's/  date\: //p ' <<< "$metadata")
+        local rfcdate; rfcdate=$(date --rfc-email --date="$hdate")
         metadata+=$'\n'"  rfcdate: $rfcdate"
+        metadata+=$'\n'"- path: /posts/$(basename "${post%.md}").html"
         echo "$metadata" >> "$list"
     done
+    echo 'post:' >> "$list"
+    echo 'title: posts' >> "$list"
 
-    # sort list by date
-    yq '.post |= sort_by(.date)' "$list" \
-    | yq '.post |= reverse' \
-    | yq '.' --yml-output \
-    | sponge "$list"
+    # reverse
+    tac "$list" | sponge "$list"
 }
 
 function generate_feed() {
@@ -66,7 +66,7 @@ function generate_pages() {
 }
 
 function generate() {
-    generate_lst
+    generate_list
     generate_feed
     generate_posts
     generate_pages
