@@ -114,20 +114,19 @@
 
 <defs>
     <circle id="cdef" cx="300" cy="300" r="200"/>
-    <path id="hexpath" d="M 300 480 L 150 400 L 150 300 L 150 200 L 300 120
+    <path id="hexp1" d="M 300 480 L 150 400 L 150 300 L 150 200 L 300 120
         L 450 200 L 450 300 L 450 400 Z"/>
-    <polygon id="hexpoly" points="16,0 32,8 32,24 16,32 0,24 0,8"/>
-
+    <path id="hexp2" d="M 16 0 L 32 8 L 32 24 L 16 32 L 0 24 L 0 8 Z"/>
     <pattern id="hexpattern" patternUnits="userSpaceOnUse" width="36" height="56">
-        <use href="#hexpoly" x="+2"  y="-16"/>
-        <use href="#hexpoly" x="+2"  y="+40"/>
-        <use href="#hexpoly" x="-16" y="+12"/>
-        <use href="#hexpoly" x="+20" y="+12"/>
+        <use href="#hexp2" x="+2"  y="-16"/>
+        <use href="#hexp2" x="+2"  y="+40"/>
+        <use href="#hexp2" x="-16" y="+12"/>
+        <use href="#hexp2" x="+20" y="+12"/>
     </pattern>
 </defs>
 
-<use id="hex1" class="hex" href="#hexpath"/>
-<use id="hex2" class="hex" href="#hexpath"/>
+<use id="hex1" class="hex" href="#hexp1"/>
+<use id="hex2" class="hex" href="#hexp1"/>
 <use id="circle10" class="circle" href="#cdef"/>
 <use id="circle11" class="circle" href="#cdef"/>
 <use id="circle12" class="circle" href="#cdef"/>
