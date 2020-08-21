@@ -23,10 +23,9 @@
     fill: var(--purple);
 }
 #cmd1 {
-    transform: scale(1.0);
     animation:
         opacity 2s linear 0s both,
-        spin 10s linear 0s infinite;
+        spincmd1 10s linear 0s infinite;
 }
 #cmd2 {
     animation:
@@ -103,14 +102,18 @@
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
 }
+@keyframes spincmd1 {
+    from { transform: scale(0.95) rotate(0deg); }
+    to   { transform: scale(0.95) rotate(360deg); }
+}
 @keyframes spincmd2 {
-    from { transform: scale(0.7) rotate(0deg); }
-    to   { transform: scale(0.7) rotate(360deg); }
+    from { transform: scale(0.66) rotate(0deg); }
+    to   { transform: scale(0.66) rotate(360deg); }
 }
 </style>
 
 <defs>
-    <path id="cpath" d="M 100 300 A 50 50 0 1 0 500 300 A 50 50 0 1 0 100 300"/>
+    <circle id="cdef" cx="300" cy="300" r="200"/>
     <path id="hexpath" d="M 300 480 L 150 400 L 150 300 L 150 200 L 300 120
         L 450 200 L 450 300 L 450 400 Z"/>
     <polygon id="hexpoly" points="16,0 32,8 32,24 16,32 0,24 0,8"/>
@@ -125,17 +128,17 @@
 
 <use id="hex1" class="hex" href="#hexpath"/>
 <use id="hex2" class="hex" href="#hexpath"/>
-<use id="circle10" class="circle" href="#cpath"/>
-<use id="circle11" class="circle" href="#cpath"/>
-<use id="circle12" class="circle" href="#cpath"/>
-<use id="circle20" class="circle" href="#cpath"/>
-<use id="circle21" class="circle" href="#cpath"/>
-<use id="circle22" href="#cpath"/>
+<use id="circle10" class="circle" href="#cdef"/>
+<use id="circle11" class="circle" href="#cdef"/>
+<use id="circle12" class="circle" href="#cdef"/>
+<use id="circle20" class="circle" href="#cdef"/>
+<use id="circle21" class="circle" href="#cdef"/>
+<use id="circle22" href="#cdef"/>
 <text id="cmd1" class="cmd" textLength="210%">
-    <textPath href="#cpath">placeholder</textPath>
+    <textPath href="#cdef">placeholder</textPath>
 </text>
 <text id="cmd2" class="cmd" textLength="210%">
-    <textPath href="#cpath">placeholder</textPath>
+    <textPath href="#cdef">placeholder</textPath>
 </text>
 
 <script>
