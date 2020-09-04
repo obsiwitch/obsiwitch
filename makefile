@@ -2,7 +2,7 @@
 all: posts list feed index
 
 .PHONY: posts
-posts: public/posts/*.html
+posts: $(patsubst %.md,%.html, $(wildcard public/posts/*.md))
 public/posts/%.html: generate.sh public/templates/layout.html public/posts/%.md
 	./generate.sh --post public/posts/$*.md
 
