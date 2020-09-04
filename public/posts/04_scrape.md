@@ -5,7 +5,7 @@ date: 2020-09-04
 
 # Dotxpathdl
 
-Dotxpathdl started as a [cli tool](https://gitlab.com/Obsidienne/dotfiles/-/blob/163b023baec5613d1e5f64a58dcf6de66f000d98/user/bin/dotxpathdl) using XPath expressions to download webcomics. In its current iteration, it's a [python module](https://gitlab.com/Obsidienne/dotfiles/-/blob/a86e690017f57eb7a3b1e6b7f70e4005efc4e183/user/lib/python/dotxpathdl.py) which can be used to download files as long as they are retrievable on a sequence of pages. The module navigates to `start_url`, retrieves file URLs with `elem_xpath`, downloads them, goes to the next page by retrieving its url with `next_xpath`, and repeats the previous steps until there is no next page.
+Dotxpathdl started as a [cli tool](https://gitlab.com/Obsidienne/dotfiles/-/blob/163b023baec5613d1e5f64a58dcf6de66f000d98/user/bin/dotxpathdl) using XPath expressions to download webcomics. In its current iteration it's a [python module](https://gitlab.com/Obsidienne/dotfiles/-/blob/a86e690017f57eb7a3b1e6b7f70e4005efc4e183/user/lib/python/dotxpathdl.py) which can be used to download files as long as they are retrievable on a sequence of pages. The module navigates to `start_url`, retrieves file URLs with `elem_xpath`, downloads them, goes to the next page by retrieving its url with `next_xpath`, and repeats the previous steps until there is no next page.
 
 ```py
 from dotxpathdl import Downloader as Xpdl
@@ -128,7 +128,7 @@ Promise.all(promises)
     })
 ```
 
-The `@match` metadata key tells on which pages the script should be executed. The script will only execute on webtoon comic pages and only if the `#monkey` anchor is added at the end of the URL. By adding the anchor rule, we can control when we want to start the download without interfering with normal web browsing.
+The `@match` metadata key describes which pages the script should be executed on. The script will only execute on webtoon comic pages and only if the `#monkey` anchor is added at the end of the URL. By adding the anchor rule, we can control when we want to start the download without interfering with normal web browsing.
 
 Once all the image fetches have been resolved, we retrieve the next page URL, append the `#monkey` anchor to it and redirect the browser to it. The userscript then executes again on the new page because it also matches the `@match` rule of the script.
 
