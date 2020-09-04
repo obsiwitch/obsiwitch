@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="56">
     <style>
-        #hex { fill: hsl(220, 15%, 18%); }
+        #hex { fill: hsl(220, 15%, 15%); }
     </style>
 
     <defs>
