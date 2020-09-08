@@ -96,7 +96,7 @@ We can use an extension to write and execute userscripts to scrape multiple page
 
 ```js
 // ==UserScript==
-// @name Crawl webtoon
+// @name Scrape webtoon
 // @match *://www.webtoons.com/*/viewer*#monkey
 // ==/UserScript==
 
@@ -123,9 +123,7 @@ document.querySelectorAll('#_imageList img').forEach((img, imgi) => {
 })
 
 Promise.all(promises)
-    .then(_ => {
-        window.location = document.querySelector('a.pg_next').href + '#monkey'
-    })
+    .then(_ => window.location = document.querySelector('a.pg_next').href + '#monkey')
 ```
 
 The `@match` metadata key describes which pages the script should be executed on. The script will only execute on webtoon comic pages and only if the `#monkey` anchor is added at the end of the URL. By adding the anchor rule, we can control when we want to start the download without interfering with normal web browsing.
@@ -139,9 +137,7 @@ You might also want to add a delay between your requests to avoid overloading th
 
 Promise.all(promises)
     .then(_ => new Promise(resolve => setTimeout(resolve, 5000)))
-    .then(_ => {
-       window.location = document.querySelector('a.pg_next').href + '#monkey'
-    })
+    .then(_ => window.location = document.querySelector('a.pg_next').href + '#monkey')
 ```
 
 # Post-processing with Bash
