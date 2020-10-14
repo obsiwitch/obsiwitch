@@ -25,12 +25,12 @@ before_script:
 
 set -o errexit -o nounset
 
-[[ "$#" -lt 1 ]] && {
+if [[ "$#" -lt 1 ]]; then
     echo "Usage: $0 <local/remote repository>"
     echo "e.g. $0 file:///home/luna/Documents/Web/obsidienne.gitlab.io"
     echo "     $0 https://gitlab.com/Obsidienne/obsidienne.gitlab.io.git"
     exit 1
-}
+fi
 
 # script exits if the repository does not exist
 git ls-remote "$1" > /dev/null
