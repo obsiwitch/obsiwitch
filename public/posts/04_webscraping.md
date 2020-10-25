@@ -130,7 +130,7 @@ The `@match` metadata key describes which pages the script should be executed on
 
 Once all the image fetches have been resolved, we retrieve the next page URL, append the `#monkey` anchor to it and redirect the browser to it. The userscript then executes again on the new page because it also matches the `@match` rule of the script.
 
-You might also want to add a delay between your requests to avoid overloading the web server. The example below waits 5 seconds before redirecting to the next page.
+You might also want to add a delay between your requests to avoid overloading the web server and/or getting your IP blocked. The example below waits 5 seconds (arbitrarily) before redirecting to the next page.
 
 ```js
 // ...
@@ -139,6 +139,8 @@ Promise.all(promises)
     .then(_ => new Promise(resolve => setTimeout(resolve, 5000)))
     .then(_ => window.location = document.querySelector('a.pg_next').href + '#monkey')
 ```
+
+**Note**: I didn't have any useful examples to demonstrate its use but you might need [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to wait for changes to the DOM tree.
 
 # Post-processing with Bash
 
