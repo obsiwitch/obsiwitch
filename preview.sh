@@ -2,20 +2,12 @@
 
 set -o errexit -o nounset
 
-cleanup() {
-    # kill subprocesses
-    pkill --parent "$$"
-}
-trap cleanup EXIT
+trap 'pkill --parent "$$"' EXIT # kill subprocesses
 
-python -m http.server \
-       --bind 'localhost' \
-       --directory 'public/' &
+python -m http.server --bind 'localhost' --directory 'public/' &
 
-while inotifywait \
-    --recursive 'public/' 'generate.sh' 'makefile' \
-    --event='modify' --event='move' \
-    --event='create' --event='delete'
+while inotifywait --event='create,delete,modify,move' --recursive \
+    'public/' 'generate.sh' 'makefile'
 do
     make all
 done
