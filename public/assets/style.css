@@ -1,5 +1,5 @@
 :root {
-    --white:   hsl(220, 15%, 70%);
+    --white:   hsl(220, 15%, 80%);
     --grey1:   hsl(220, 15%, 25%); --grey2:   hsl(220, 15%, 40%);
     --black1:  hsl(220, 15%, 18%); --black2:  hsl(220, 15%, 20%);
     --red1:    hsl(  5, 55%, 52%); --red2:    hsl(  5, 55%, 62%);
@@ -10,9 +10,9 @@
 }
 
 body {
-    background: var(--black1) url("bg.svg");
-    background-size: 27px;
+    background: var(--black2);
     font-family: monospace;
+    font-size: 14px;
     line-height: 1.6;
     color: var(--white);
 }
@@ -34,7 +34,6 @@ a.muted {
 }
 
 main {
-    background: var(--black2);
     border: 1px solid var(--white);
     margin: auto;
     padding: 0 1em;
