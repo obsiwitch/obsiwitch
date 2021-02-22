@@ -23,7 +23,7 @@
 <time>2019-06-02</time>
 </header>
 
-<nav>
+<nav class="toc">
 <ul>
 <li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
 <li><a href="#fuzzy-path-completion-2019-06-02"><span class="toc-section-number">2</span> Fuzzy path completion (2019-06-02)</a></li>
@@ -49,67 +49,67 @@ READLINE_POINT
 <a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#index-READLINE_005fLINE">Bash Reference manual - Shell Variables</a>
 </blockquote>
 <p>I also needed to find a way to call readline’s completion without having to manually call a specific completion function. To do this we can bind the <a href="https://www.gnu.org/software/bash/manual/html_node/Commands-For-Completion.html#index-complete-_0028TAB_0029">complete readline function</a> to the <code>\e[0n</code> key sequence (VT100 ANSI escape sequence for <code>Response: terminal is OK</code>). Then we print <code>\e[5n</code> (VT100 ANSI escape sequence for <code>Device status report</code>). The terminal then answers with <code>\e[0n</code>, which in turns activates readline’s completion. <a href="https://unix.stackexchange.com/a/217390">[1]</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co"># Minimal fuzzy completion on trigger sequence &#39;@&#39;, else use readline&#39;s</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="co"># completion.</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="fu">_fzf_complete()</span> <span class="kw">{</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>    <span class="bu">local</span> <span class="va">words=(</span> <span class="va">${READLINE_LINE:0:$READLINE_POINT}</span> <span class="va">)</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a>    <span class="bu">local</span> <span class="va">remainder=(</span> <span class="va">${READLINE_LINE:$READLINE_POINT}</span> <span class="va">)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a>    <span class="kw">if [[</span> <span class="st">&quot;</span><span class="va">${words[-1]:0:1}</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&#39;@&#39;</span><span class="kw"> ]]</span>; <span class="kw">then</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a>        <span class="bu">bind</span> <span class="st">&#39;&quot;\e[0n&quot;: complete&#39;</span><span class="kw">;</span> <span class="bu">printf</span> <span class="st">&#39;\e[5n&#39;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a>        <span class="bu">return</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a>    <span class="kw">fi</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a>    <span class="bu">unset</span> <span class="st">&#39;words[-1]&#39;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true"></a>    <span class="bu">local</span> <span class="va">selected=$(</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true"></a>        <span class="ex">fd</span> . --print0 <span class="kw">\</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true"></a>        <span class="kw">|</span> <span class="ex">fzf</span> --reverse --multi --read0 --print0 --exit-0 <span class="kw">\</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true"></a>        <span class="kw">|</span> <span class="fu">xargs</span> -0 --no-run-if-empty printf <span class="st">&#39;%q &#39;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true"></a>    <span class="va">)</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true"></a>    [[ <span class="ex">-z</span> <span class="st">&quot;</span><span class="va">$selected</span><span class="st">&quot;</span> ]] <span class="kw">&amp;&amp;</span> <span class="bu">return</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true"></a>    <span class="va">READLINE_LINE=</span><span class="st">&quot;</span><span class="va">${words[*]}</span><span class="st"> </span><span class="va">${selected}${remainder[*]}</span><span class="st">&quot;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true"></a>    <span class="va">READLINE_POINT=$((</span> <span class="va">$READLINE_POINT</span> + <span class="va">${#selected}</span> <span class="va">))</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true"></a><span class="kw">}</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true"></a><span class="co"># bind _fzf_complete to &lt;TAB&gt;</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true"></a><span class="bu">bind</span> -x <span class="st">&#39;&quot;\C-i&quot;: &quot;_fzf_complete&quot;&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Minimal fuzzy completion on trigger sequence &#39;@&#39;, else use readline&#39;s</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># completion.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">_fzf_complete()</span> <span class="kw">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">words=(</span> <span class="va">${READLINE_LINE</span><span class="op">:</span><span class="dv">0</span><span class="op">:</span><span class="va">$READLINE_POINT}</span> <span class="va">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">remainder=(</span> <span class="va">${READLINE_LINE</span><span class="op">:</span><span class="va">$READLINE_POINT}</span> <span class="va">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">${words</span><span class="op">[</span>-1<span class="op">]:</span><span class="dv">0</span><span class="op">:</span><span class="dv">1</span><span class="va">}</span><span class="st">&quot;</span> <span class="ot">!=</span> <span class="st">&#39;@&#39;</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">bind</span> <span class="st">&#39;&quot;\e[0n&quot;: complete&#39;</span><span class="kw">;</span> <span class="bu">printf</span> <span class="st">&#39;\e[5n&#39;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">unset</span> <span class="st">&#39;words[-1]&#39;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">selected=$(</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">fd</span> . <span class="at">--print0</span> <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">|</span> <span class="ex">fzf</span> <span class="at">--reverse</span> <span class="at">--multi</span> <span class="at">--read0</span> <span class="at">--print0</span> <span class="at">--exit-0</span> <span class="dt">\</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-0</span> <span class="at">--no-run-if-empty</span> printf <span class="st">&#39;%q &#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">[[</span> <span class="ot">-z</span> <span class="st">&quot;</span><span class="va">$selected</span><span class="st">&quot;</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="cf">return</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="va">READLINE_LINE=</span><span class="st">&quot;</span><span class="va">${words</span><span class="op">[*]</span><span class="va">}</span><span class="st"> </span><span class="va">${selected}${remainder</span><span class="op">[*]</span><span class="va">}</span><span class="st">&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="va">READLINE_POINT=$((</span> <span class="va">$READLINE_POINT</span> <span class="op">+</span> <span class="va">${#selected}</span> <span class="va">))</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># bind _fzf_complete to &lt;TAB&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> <span class="at">-x</span> <span class="st">&#39;&quot;\C-i&quot;: &quot;_fzf_complete&quot;&#39;</span></span></code></pre></div>
 <h1 data-number="3" id="fuzzy-path-selection-on-keybinding-2019-07-23"><span class="header-section-number">3</span> Fuzzy path selection on keybinding (2019-07-23)</h1>
 <p>After a few weeks of using the script in the previous section, I decided to simplify it by calling fzf with a keybinding instead of calling it on tab completion. The easiest solution would have been to <code>source /usr/share/fzf/key-bindings.bash</code> but I wasn’t satisfied with the defaults and rewrote it.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">_fzf_select()</span> <span class="kw">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>    <span class="bu">local</span> <span class="va">lineleft=${READLINE_LINE:0:$READLINE_POINT}</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>    <span class="bu">local</span> <span class="va">lineright=${READLINE_LINE:$READLINE_POINT}</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    <span class="co"># 1. retrieve recursive list of files and directories (by default fzf only</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="co">#    search through files) in specified directories</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>    <span class="co"># 2. run fzf w/ multi-select enabled</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="co"># 3. quote the results in a way that can be reused as shell input</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>    <span class="bu">local</span> <span class="va">selected=$(</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>        <span class="ex">fd</span> . <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span> --print0 <span class="kw">\</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>        <span class="kw">|</span> <span class="ex">fzf</span> --reverse --multi --read0 --print0 --exit-0 <span class="kw">\</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>        <span class="kw">|</span> <span class="fu">xargs</span> -0 --no-run-if-empty printf <span class="st">&#39;%q &#39;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="va">)</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>    [[ <span class="ex">-z</span> <span class="st">&quot;</span><span class="va">$selected</span><span class="st">&quot;</span> ]] <span class="kw">&amp;&amp;</span> <span class="bu">return</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="va">READLINE_LINE=</span><span class="st">&quot;</span><span class="va">${lineleft}${selected}${lineright}</span><span class="st">&quot;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>    <span class="va">READLINE_POINT=$((</span> <span class="va">$READLINE_POINT</span> + <span class="va">${#selected}</span> <span class="va">))</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a><span class="kw">}</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a><span class="co"># bind _fzf_select to ctrl+f (current directory) and ctrl+g (home)</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a><span class="bu">bind</span> -x <span class="st">&#39;&quot;\C-f&quot;: _fzf_select &quot;$PWD&quot;&#39;</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a><span class="bu">bind</span> -x <span class="st">&#39;&quot;\C-g&quot;: _fzf_select &quot;$HOME&quot;&#39;</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>$ cat &lt;CTRL+F&gt;</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>&gt; exp .sh</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  720/23328 (2)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a> &gt;Documents/CompSci/Experiments/Shell/scope.sh</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>  Documents/CompSci/Experiments/Shell/heredoc.sh</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a>  Documents/CompSci/Experiments/progress/run.sh</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a>  Documents/CompSci/Experiments/progress/pv/run.sh</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a>  Documents/CompSci/Experiments/progress/tqdmpy/run.sh</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a>  Documents/CompSci/Experiments/progress/tqdmlua/run.sh</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>  Documents/CompSci/Experiments/progress/tqdmcpp/run.sh</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a> &gt;Documents/CompSci/Experiments/virtualization/gitlabci/run.sh</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>  Documents/CompSci/Experiments/Shell/readline-input-injection/completion.sh</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>$ cat Documents/CompSci/Experiments/Shell/scope.sh Documents/CompSci/Experiments/virtualization/gitlabci/run.sh</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">_fzf_select()</span> <span class="kw">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">lineleft=${READLINE_LINE</span><span class="op">:</span><span class="dv">0</span><span class="op">:</span><span class="va">$READLINE_POINT}</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">lineright=${READLINE_LINE</span><span class="op">:</span><span class="va">$READLINE_POINT}</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. retrieve recursive list of files and directories (by default fzf only</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    search through files) in specified directories</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. run fzf w/ multi-select enabled</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. quote the results in a way that can be reused as shell input</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">selected=$(</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">fd</span> . <span class="st">&quot;</span><span class="va">$@</span><span class="st">&quot;</span> <span class="at">--print0</span> <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">|</span> <span class="ex">fzf</span> <span class="at">--reverse</span> <span class="at">--multi</span> <span class="at">--read0</span> <span class="at">--print0</span> <span class="at">--exit-0</span> <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-0</span> <span class="at">--no-run-if-empty</span> printf <span class="st">&#39;%q &#39;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">)</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">[[</span> <span class="ot">-z</span> <span class="st">&quot;</span><span class="va">$selected</span><span class="st">&quot;</span> <span class="kw">]]</span> <span class="kw">&amp;&amp;</span> <span class="cf">return</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="va">READLINE_LINE=</span><span class="st">&quot;</span><span class="va">${lineleft}${selected}${lineright}</span><span class="st">&quot;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="va">READLINE_POINT=$((</span> <span class="va">$READLINE_POINT</span> <span class="op">+</span> <span class="va">${#selected}</span> <span class="va">))</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># bind _fzf_select to ctrl+f (current directory) and ctrl+g (home)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> <span class="at">-x</span> <span class="st">&#39;&quot;\C-f&quot;: _fzf_select &quot;$PWD&quot;&#39;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">bind</span> <span class="at">-x</span> <span class="st">&#39;&quot;\C-g&quot;: _fzf_select &quot;$HOME&quot;&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>$ cat &lt;CTRL+F&gt;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>&gt; exp .sh</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  720/23328 (2)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> &gt;Documents/CompSci/Experiments/Shell/scope.sh</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/Shell/heredoc.sh</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/progress/run.sh</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/progress/pv/run.sh</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/progress/tqdmpy/run.sh</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/progress/tqdmlua/run.sh</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/progress/tqdmcpp/run.sh</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a> &gt;Documents/CompSci/Experiments/virtualization/gitlabci/run.sh</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  Documents/CompSci/Experiments/Shell/readline-input-injection/completion.sh</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>$ cat Documents/CompSci/Experiments/Shell/scope.sh Documents/CompSci/Experiments/virtualization/gitlabci/run.sh</span></code></pre></div>
 
 </article>
 

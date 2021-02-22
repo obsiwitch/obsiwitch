@@ -67,7 +67,7 @@ nav {
     margin: 1em 0;
     padding: 0 1em;
 }
-nav ul, nav ol {
+nav.toc ul, nav ol {
     list-style-type: none;
     padding: 0;
 }
