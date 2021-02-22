@@ -10,7 +10,7 @@
 }
 
 body {
-    background: var(--black2);
+    background: var(--black1);
     font-family: monospace;
     font-size: 14px;
     line-height: 1.6;
@@ -29,7 +29,13 @@ a:hover {
     text-decoration: underline;
 }
 
+hr {
+    border: none;
+    border-top: 1px dashed var(--white);
+}
+
 main {
+    background: var(--black2);
     border: 1px solid var(--white);
     margin: auto;
     padding: 0 1em;
