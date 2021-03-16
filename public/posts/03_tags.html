@@ -28,6 +28,7 @@
 <li><a href="#requirements"><span class="toc-section-number">1</span> Requirements</a></li>
 <li><a href="#links"><span class="toc-section-number">2</span> Links</a></li>
 <li><a href="#filename-tags"><span class="toc-section-number">3</span> Filename tags</a></li>
+<li><a href="#update-20210316"><span class="toc-section-number">4</span> Update 2021/03/16</a></li>
 </ul>
 </nav>
 
@@ -43,7 +44,7 @@
 <li><a href="https://www.lesbonscomptes.com/pages/extattrs.html">Extended attributes: the good, the not so good, the bad.</a></li>
 </ul>
 <h1 data-number="3" id="filename-tags"><span class="header-section-number">3</span> Filename tags</h1>
-<p>After discarding a few solutions, I settled for tags in filenames in the following form: <code>filename.tag1.tag2.long_tag.ext</code>. It’s simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers). I also wrote a <a href="https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags">script</a> to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).</p>
+<p>After discarding a few solutions, I settled for tags in filenames in the following form: <code>title.tag1.tag2.long_tag.ext</code>. It’s simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers). I also wrote a <a href="https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags">script</a> to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: find all the tags used in a directory</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> dottags ~/Graphics/Illustrations/</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">[...]</span></span>
@@ -66,6 +67,12 @@
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">..tions/9d0f1c9145156139470e231a40f0082726c59a53.character.scene.rain.city.jpg</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;</span>..ons/32803b9ca54fca5ed9445b3644c34d4dc8db5860.character.scene.witch.city.jpg</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">[...]</span></span></code></pre></div>
+<h1 data-number="4" id="update-20210316"><span class="header-section-number">4</span> Update 2021/03/16</h1>
+<ul>
+<li>modified filename format: <code>title.+tag1+tag2+long_tag3.ext</code></li>
+<li><code>dottags-hash</code> (old: <code>dotrename</code>) replaces a file title with a short hash (default: 7 characters)</li>
+<li><code>dottags-count</code> (old: <code>dottags</code>) now works with the new filename format and only displays tags and not other suffixes</li>
+</ul>
 
 </article>
 

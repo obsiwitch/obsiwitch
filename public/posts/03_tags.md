@@ -16,7 +16,7 @@ date: 2020-04-11
 
 # Filename tags
 
-After discarding a few solutions, I settled for tags in filenames in the following form: `filename.tag1.tag2.long_tag.ext`. It's simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers).  I also wrote a [script](https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags) to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).
+After discarding a few solutions, I settled for tags in filenames in the following form: `title.tag1.tag2.long_tag.ext`. It's simple, it does not require any specific software and it works with existing tools (e.g. ls, mv, cp, rsync, fd, fzf, file managers).  I also wrote a [script](https://gitlab.com/Obsidienne/dotfiles/-/blob/cdd67a5cfab5ad5446a020578a165efa402c4bf5/user/bin/dottags) to find all the tags used in a directory. This solution has two drawbacks though: it pollutes filenames, and filesystems have a maximum filename length (often 255 bytes).
 
 ```sh
 # Example: find all the tags used in a directory
@@ -45,3 +45,9 @@ $ fzf --reverse --multi
   >..ons/32803b9ca54fca5ed9445b3644c34d4dc8db5860.character.scene.witch.city.jpg
   [...]
 ```
+
+# Update 2021/03/16
+
+* modified filename format: `title.+tag1+tag2+long_tag3.ext`
+* `dottags-hash` (old: `dotrename`) replaces a file title with a short hash (default: 7 characters)
+* `dottags-count` (old: `dottags`) now works with the new filename format and only displays tags and not other suffixes
