@@ -142,6 +142,10 @@ Promise.all(promises)
 
 **Note**: I didn't have any useful examples to demonstrate its use but you might need [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to wait for changes to the DOM tree.
 
+# Selenium
+
+Selenium is a browser automation tool (e.g. for web applications testing purposes). We can use it to automate downloads. I'm using the [python binding](https://archlinux.org/packages/community/x86_64/python-selenium/) of selenium with [geckodriver](https://archlinux.org/packages/community/x86_64/geckodriver/). [This example](https://gitlab.com/Obsidienne/codeexperiments/-/blob/285eff138b78013f2b817e8d01307b3b61fabaca/Snippets/SeleniumScraping.py) creates a firefox profile with `browser.helperApps.neverAsk.saveToDisk` set and launches the browser. The script first bypasses webtoons' age gate by filling the form and then downloads the webcomic using code similar to the one in the previous section.
+
 # Post-processing with Bash
 
 ```bash

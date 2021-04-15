@@ -28,7 +28,8 @@
 <li><a href="#dotxpathdl"><span class="toc-section-number">1</span> Dotxpathdl</a></li>
 <li><a href="#browser-web-console"><span class="toc-section-number">2</span> Browser Web Console</a></li>
 <li><a href="#userscripts"><span class="toc-section-number">3</span> Userscripts</a></li>
-<li><a href="#post-processing-with-bash"><span class="toc-section-number">4</span> Post-processing with Bash</a></li>
+<li><a href="#selenium"><span class="toc-section-number">4</span> Selenium</a></li>
+<li><a href="#post-processing-with-bash"><span class="toc-section-number">5</span> Post-processing with Bash</a></li>
 </ul>
 </nav>
 
@@ -134,10 +135,12 @@
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(_ <span class="kw">=&gt;</span> <span class="kw">new</span> <span class="bu">Promise</span>(resolve <span class="kw">=&gt;</span> <span class="pp">setTimeout</span>(resolve<span class="op">,</span> <span class="dv">5000</span>)))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(_ <span class="kw">=&gt;</span> <span class="bu">window</span><span class="op">.</span><span class="at">location</span> <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;a.pg_next&#39;</span>)<span class="op">.</span><span class="at">href</span> <span class="op">+</span> <span class="st">&#39;#monkey&#39;</span>)</span></code></pre></div>
 <p><strong>Note</strong>: I didn’t have any useful examples to demonstrate its use but you might need <a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver">MutationObserver</a> to wait for changes to the DOM tree.</p>
-<h1 data-number="4" id="post-processing-with-bash"><span class="header-section-number">4</span> Post-processing with Bash</h1>
+<h1 data-number="4" id="selenium"><span class="header-section-number">4</span> Selenium</h1>
+<p>Selenium is a browser automation tool (e.g. for web applications testing purposes). We can use it to automate downloads. I’m using the <a href="https://archlinux.org/packages/community/x86_64/python-selenium/">python binding</a> of selenium with <a href="https://archlinux.org/packages/community/x86_64/geckodriver/">geckodriver</a>. <a href="https://gitlab.com/Obsidienne/codeexperiments/-/blob/285eff138b78013f2b817e8d01307b3b61fabaca/Snippets/SeleniumScraping.py">This example</a> creates a firefox profile with <code>browser.helperApps.neverAsk.saveToDisk</code> set and launches the browser. The script first bypasses webtoons’ age gate by filling the form and then downloads the webcomic using code similar to the one in the previous section.</p>
+<h1 data-number="5" id="post-processing-with-bash"><span class="header-section-number">5</span> Post-processing with Bash</h1>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># move each episode in its own subdirectory</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> <span class="pp">*</span>_<span class="pp">*</span>_<span class="pp">*</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">episode=</span><span class="st">&quot;e</span><span class="va">${f</span><span class="op">%%</span>_<span class="pp">*</span><span class="va">}</span><span class="st">&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">episode</span><span class="op">=</span><span class="st">&quot;e</span><span class="va">${f</span><span class="op">%%</span>_<span class="pp">*</span><span class="va">}</span><span class="st">&quot;</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">$episode</span><span class="st">&quot;</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mv</span> <span class="st">&quot;</span><span class="va">$f</span><span class="st">&quot;</span> <span class="st">&quot;</span><span class="va">$episode</span><span class="st">&quot;</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
