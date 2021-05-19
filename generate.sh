@@ -1,24 +1,24 @@
 #!/bin/bash
 
+# Dependencies
+# * [moreutils](https://joeyh.name/code/moreutils) (sponge)
+# * [pandoc](https://pandoc.org) (template engine)
+
 set -o errexit -o nounset
 
 function generate_list() {
     # create
-    local list='public/posts/list.yml'
+    local list='posts/list.yml'
     echo '' > "$list"
 
     # populate
-    for post in public/posts/*.md; do
-        local metadata; metadata=$(
-            # find 1st pattern, then print lines until 2nd pattern found
-            sed -ne '/^---$/ { :loop n; /^---$/q; s/^/  /; p; b loop; }' "$post"
-        )
-        local hdate; hdate=$(sed -n 's/  date\: //p ' <<< "$metadata")
-        local rfcdate; rfcdate=$(date --rfc-email --date="$hdate")
-        metadata+=$'\n'"  rfcdate: $rfcdate"
-        metadata+=$'\n'"- path: /posts/$(basename "${post%.md}").html"
-        echo "$metadata" >> "$list"
-    done
+    for post in posts/*.md; do
+        echo "  title: $(sed -n '/^# /{s///p;q}' "$post")"
+        local date; date="$(basename "${post%%_*}")"
+        echo "  date: $date"
+        echo "  rfcdate: $(date --rfc-email --date="$date")"
+        echo "- path: $post"
+    done >> "$list"
     echo 'post:' >> "$list"
     echo 'title: posts' >> "$list"
 
@@ -29,40 +29,25 @@ function generate_list() {
 function generate_feed() {
     pandoc '/dev/null' \
         --from='markdown' --to='plain' \
-        --template='public/templates/rss.xml' \
-        --metadata-file='public/posts/list.yml'\
-        --output='public/rss.xml'
+        --template='templates/rss.xml' \
+        --metadata-file='posts/list.yml'\
+        --output='posts/rss.xml'
 }
 
-function generate_post() {
-    pandoc "$1" \
-        --output="${1%.md}.html" \
-        --template='public/templates/layout.html' \
-        --toc --number-sections
-}
-
-function generate_index() {
+function generate_readme() {
     pandoc '/dev/null' \
         --from='markdown' \
-        --template='public/templates/index.html' \
-        --metadata-file='public/posts/list.yml'\
-        --output='public/index.html'
-    pandoc '/dev/null' \
-        --from='markdown' \
-        --template='public/templates/layout.html' \
-        --metadata='pagetitle:Index' \
-        --include-after-body='public/index.html' \
-        --output='public/index.html'
+        --template='templates/readme.md' \
+        --metadata-file='posts/list.yml'\
+        --output='readme.md'
 }
 
-if [[ "$*" == *--post* ]]; then
-    generate_post "$2"
-elif [[ "$*" == *--list* ]]; then
+if [[ "$*" == *--list* ]]; then
     generate_list
 elif [[ "$*" == *--feed* ]]; then
     generate_feed
-elif [[ "$*" == *--index* ]]; then
-    generate_index
+elif [[ "$*" == *--readme* ]]; then
+    generate_readme
 else
     exit 1
 fi

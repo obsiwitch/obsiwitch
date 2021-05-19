@@ -1,9 +1,6 @@
----
-title: Automate downloads
-date: 2020-09-04
----
+# Automate downloads
 
-# Dotxpathdl
+## Dotxpathdl
 
 I wrote dotxpathdl first as a [cli tool](https://gitlab.com/Obsidienne/dotfiles/-/blob/163b023baec5613d1e5f64a58dcf6de66f000d98/user/bin/dotxpathdl) and then as a [python module](https://gitlab.com/Obsidienne/dotfiles/-/blob/a86e690017f57eb7a3b1e6b7f70e4005efc4e183/user/lib/python/dotxpathdl.py) to download files on a sequence of pages (e.g. webcomics) with the help of XPath expressions. The module navigates to `start_url`, retrieves file URLs with `elem_xpath`, downloads them, goes to the next page by retrieving its url with `next_xpath`, and repeats the previous steps until there is no next page.
 
@@ -31,7 +28,7 @@ Xpdl(
 ).start()
 ```
 
-# Browser Web Console
+## Browser Web Console
 
 The script above can't handle websites loading their content via JavaScript.  We can solve this problem by automating downloads in the browser. It will also be easier to handle scenarios where authentication is needed. First of all I created a new Firefox profile (`firefox --ProfileManager`) to avoid modifying my main profile preferences.
 
@@ -90,7 +87,7 @@ document.querySelectorAll('#_imageList img').forEach((img, i) => {
 
 We now know how to automate downloads on one page, but how do we handle a sequence of pages or more complex scenarios?
 
-# Userscripts
+## Userscripts
 
 We can use an extension to write and execute userscripts to scrape multiple pages ([Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/) or [Violentmonkey](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/)).
 
@@ -142,11 +139,11 @@ Promise.all(promises)
 
 **Note**: I didn't have any useful examples to demonstrate its use but you might need [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to wait for changes to the DOM tree.
 
-# Selenium
+## Selenium
 
 Selenium is a browser automation tool (e.g. for web applications testing purposes). I'm using the [python binding](https://archlinux.org/packages/community/x86_64/python-selenium/) of selenium with [geckodriver](https://archlinux.org/packages/community/x86_64/geckodriver/). [This example](https://gitlab.com/Obsidienne/codeexperiments/-/blob/285eff138b78013f2b817e8d01307b3b61fabaca/Snippets/SeleniumScraping.py) creates a firefox profile with `browser.helperApps.neverAsk.saveToDisk` set and launches the browser. The script first bypasses webtoons' age gate by filling the form and then downloads the webcomic using code similar to the one in the previous section.
 
-# Post-processing with Bash
+## Post-processing with Bash
 
 ```bash
 # move each episode in its own subdirectory

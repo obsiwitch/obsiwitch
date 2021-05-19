@@ -1,23 +1,11 @@
 .PHONY: all
-all: posts list feed index
+all: posts/rss.xml readme.md
 
-.PHONY: posts
-posts: $(patsubst %.md,%.html, $(wildcard public/posts/*.md))
-public/posts/%.html: generate.sh public/templates/layout.html public/posts/%.md
-	./generate.sh --post public/posts/$*.md
-
-.PHONY: list
-list: public/posts/list.yml
-public/posts/list.yml: generate.sh public/posts/*.md
+posts/list.yml: generate.sh posts/*.md
 	./generate.sh --list
 
-.PHONY: feed
-feed: public/rss.xml
-public/rss.xml: generate.sh public/templates/rss.xml public/posts/list.yml
+posts/rss.xml: generate.sh templates/rss.xml posts/list.yml
 	./generate.sh --feed
 
-.PHONY: index
-index: public/index.html
-public/index.html: generate.sh public/templates/layout.html
-public/index.html: public/templates/index.html public/posts/list.yml
-	./generate.sh --index
+readme.md: generate.sh templates/readme.md posts/list.yml
+	./generate.sh --readme

@@ -1,9 +1,6 @@
----
-title: Restore Android 3-button navigation
-date: 2019-07-25
----
+# Restore Android 3-button navigation
 
-# Android 9 (2019-07-25)
+## Android 9 (2019-07-25)
 
 I tested the following on my Android One device (Nokia 2.2, Android 9) to restore the old 3-button navigation (back, home, overview) instead of using the 2-button navigation.
 
@@ -35,7 +32,7 @@ $ adb kill-server
 
 To restore the default behaviour, you can re-enable the Quickstep launcher through the GUI (`Settings -> Apps`) or run `pm enable com.android.launcher3` in an adb remote shell and then reboot your phone.
 
-# Android 10 (2020-03-19)
+## Android 10 (2020-03-19)
 
 Android 10 defaults to 3-button navigation when using a custom launcher. Install one and then select it in `Settings -> Apps & Notifications -> Default Apps -> Home app`.
 

@@ -2,16 +2,16 @@
 <rss version="2.0">
 <channel>
 
-<title>Obsidienne - Posts</title>
-<link>https://obsidienne.gitlab.io</link>
+<title>Obsidienne</title>
+<link>https://github.com/obsiwitch</link>
 <description></description>
 
 $for(post)$
 <item>
     <title>$post.title$</title>
-    <link>https://obsidienne.gitlab.io/$post.path$</link>
+    <link>https://github.com/obsiwitch/obsiwitch/blob/main/$post.path$</link>
+    <guid>https://github.com/obsiwitch/obsiwitch/blob/main/$post.path$</guid>
     <pubDate>$post.rfcdate$</pubDate>
-    <guid>https://obsidienne.gitlab.io/$post.path$#$post.date$</guid>
 </item>
 $endfor$
 
