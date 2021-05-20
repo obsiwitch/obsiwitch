@@ -1,4 +1,4 @@
-## Posts · [RSS](posts/rss.xml)
+## Posts · [RSS](https://raw.githubusercontent.com/obsiwitch/obsiwitch/main/posts/rss.xml)
 
 * <date>2020-09-04</date> · [Automate
 downloads](posts/2020-09-04_webscraping.md)
