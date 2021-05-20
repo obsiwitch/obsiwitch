@@ -2,7 +2,7 @@
 
 ## Dotxpathdl
 
-I wrote dotxpathdl first as a [cli tool](https://gitlab.com/Obsidienne/dotfiles/-/blob/163b023baec5613d1e5f64a58dcf6de66f000d98/user/bin/dotxpathdl) and then as a [python module](https://gitlab.com/Obsidienne/dotfiles/-/blob/a86e690017f57eb7a3b1e6b7f70e4005efc4e183/user/lib/python/dotxpathdl.py) to download files on a sequence of pages (e.g. webcomics) with the help of XPath expressions. The module navigates to `start_url`, retrieves file URLs with `elem_xpath`, downloads them, goes to the next page by retrieving its url with `next_xpath`, and repeats the previous steps until there is no next page.
+I wrote dotxpathdl first as a [cli tool](https://github.com/obsiwitch/dotfiles/blob/163b023baec5613d1e5f64a58dcf6de66f000d98/user/bin/dotxpathdl) and then as a [python module](https://github.com/obsiwitch/dotfiles/blob/a86e690017f57eb7a3b1e6b7f70e4005efc4e183/user/lib/python/dotxpathdl.py) to download files on a sequence of pages (e.g. webcomics) with the help of XPath expressions. The module navigates to `start_url`, retrieves file URLs with `elem_xpath`, downloads them, goes to the next page by retrieving its url with `next_xpath`, and repeats the previous steps until there is no next page.
 
 ```py
 from dotxpathdl import Downloader as Xpdl
@@ -141,7 +141,7 @@ Promise.all(promises)
 
 ## Selenium
 
-Selenium is a browser automation tool (e.g. for web applications testing purposes). I'm using the [python binding](https://archlinux.org/packages/community/x86_64/python-selenium/) of selenium with [geckodriver](https://archlinux.org/packages/community/x86_64/geckodriver/). [This example](https://gitlab.com/Obsidienne/codeexperiments/-/blob/285eff138b78013f2b817e8d01307b3b61fabaca/Snippets/SeleniumScraping.py) creates a firefox profile with `browser.helperApps.neverAsk.saveToDisk` set and launches the browser. The script first bypasses webtoons' age gate by filling the form and then downloads the webcomic using code similar to the one in the previous section.
+Selenium is a browser automation tool (e.g. for web applications testing purposes). I'm using the [python binding](https://archlinux.org/packages/community/x86_64/python-selenium/) of selenium with [geckodriver](https://archlinux.org/packages/community/x86_64/geckodriver/). [This example](https://github.com/obsiwitch/experiments/blob/285eff138b78013f2b817e8d01307b3b61fabaca/Snippets/SeleniumScraping.py) creates a firefox profile with `browser.helperApps.neverAsk.saveToDisk` set and launches the browser. The script first bypasses webtoons' age gate by filling the form and then downloads the webcomic using code similar to the one in the previous section.
 
 ## Post-processing with Bash
 
