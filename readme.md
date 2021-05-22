@@ -1,5 +1,7 @@
 ## Posts · [RSS](https://raw.githubusercontent.com/obsiwitch/obsiwitch/main/posts/rss.xml)
 
+* <date>2021-05-22</date> · [Game assets
+extraction](posts/2021-05-22_assets_extraction.md)
 * <date>2020-09-04</date> · [Automate
 downloads](posts/2020-09-04_webscraping.md)
 * <date>2020-04-11</date> · [File tags](posts/2020-04-11_tags.md)
