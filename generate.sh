@@ -7,7 +7,7 @@
 set -o errexit -o nounset
 
 function generate_list() {
-    { for post in posts/*.md; do
+    { for post in "$@"; do
         echo "  title: $(sed -n '/^# /{s///p;q}' "$post")"
         local date; date="$(basename "${post%%_*}")"
         echo "  date: $date"
@@ -15,23 +15,13 @@ function generate_list() {
         echo "- path: $post"
     done
     echo 'post:'
-    echo 'title: posts'; } | tac > 'posts/list.yml'
+    echo 'title: posts'; } | tac
 }
 
-function generate_feed() {
+function generate_tpl() {
     pandoc '/dev/null' \
         --from='markdown' --to='plain' \
-        --template='templates/rss.xml' \
-        --metadata-file='posts/list.yml'\
-        --output='posts/rss.xml'
+        --template="$1" --metadata-file="$2"
 }
 
-function generate_readme() {
-    pandoc '/dev/null' \
-        --from='markdown' \
-        --template='templates/readme.md' \
-        --metadata-file='posts/list.yml'\
-        --output='readme.md'
-}
-
-"generate_$1"
+"generate_$1" "${@:2}"
