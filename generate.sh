@@ -1,21 +1,20 @@
 #!/bin/bash
 
-# Dependencies
-# * [moreutils](https://joeyh.name/code/moreutils) (sponge)
-# * [pandoc](https://pandoc.org) (template engine)
+# dep: pandoc (templating) https://pandoc.org
 
 set -o errexit -o nounset
 
 function generate_list() {
-    { for post in "$@"; do
-        echo "  title: $(sed -n '/^# /{s///p;q}' "$post")"
+    echo 'title: posts'
+    echo 'post:'
+    local i; for (( i="${#@}"; i >= 1; --i )); do
+        local post="${!i}"
+        echo "- title: $(sed -n '/^# /{s///p;q}' "$post")"
         local date; date="$(basename "${post%%_*}")"
         echo "  date: $date"
         echo "  rfcdate: $(date --rfc-email --date="$date")"
-        echo "- path: $post"
+        echo "  path: $post"
     done
-    echo 'post:'
-    echo 'title: posts'; } | tac
 }
 
 function generate_tpl() {
