@@ -7,23 +7,15 @@
 set -o errexit -o nounset
 
 function generate_list() {
-    # create
-    local list='posts/list.yml'
-    echo '' > "$list"
-
-    # populate
-    for post in posts/*.md; do
+    { for post in posts/*.md; do
         echo "  title: $(sed -n '/^# /{s///p;q}' "$post")"
         local date; date="$(basename "${post%%_*}")"
         echo "  date: $date"
         echo "  rfcdate: $(date --rfc-email --date="$date")"
         echo "- path: $post"
-    done >> "$list"
-    echo 'post:' >> "$list"
-    echo 'title: posts' >> "$list"
-
-    # reverse
-    tac "$list" | sponge "$list"
+    done
+    echo 'post:'
+    echo 'title: posts'; } | tac > 'posts/list.yml'
 }
 
 function generate_feed() {
@@ -42,12 +34,4 @@ function generate_readme() {
         --output='readme.md'
 }
 
-if [[ "$*" == *--list* ]]; then
-    generate_list
-elif [[ "$*" == *--feed* ]]; then
-    generate_feed
-elif [[ "$*" == *--readme* ]]; then
-    generate_readme
-else
-    exit 1
-fi
+"generate_$1"

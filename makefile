@@ -2,10 +2,10 @@
 all: posts/rss.xml readme.md
 
 posts/list.yml: generate.sh posts/*.md
-	./generate.sh --list
+	./generate.sh list
 
 posts/rss.xml: generate.sh templates/rss.xml posts/list.yml
-	./generate.sh --feed
+	./generate.sh feed
 
 readme.md: generate.sh templates/readme.md posts/list.yml
-	./generate.sh --readme
+	./generate.sh readme
