@@ -1,4 +1,4 @@
-## Posts · [RSS](https://raw.githubusercontent.com/obsiwitch/obsiwitch/main/posts/rss.xml)
+## Posts · [RSS](https://github.com/obsiwitch/obsiwitch/commits/main.atom)
 
 $for(post)$
 * <date>$post.date$</date> · [$post.title$]($post.path$)

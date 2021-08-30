@@ -10,9 +10,7 @@ function generate_list() {
     local i; for (( i="${#@}"; i >= 1; --i )); do
         local post="${!i}"
         echo "- title: $(sed -n '/^# /{s///p;q}' "$post")"
-        local date; date="$(basename "${post%%_*}")"
-        echo "  date: $date"
-        echo "  rfcdate: $(date --rfc-email --date="$date")"
+        echo "  date: $(basename "${post%%_*}")"
         echo "  path: $post"
     done
 }

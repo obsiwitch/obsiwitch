@@ -1,4 +1,4 @@
-## Posts · [RSS](https://raw.githubusercontent.com/obsiwitch/obsiwitch/main/posts/rss.xml)
+## Posts · [RSS](https://github.com/obsiwitch/obsiwitch/commits/main.atom)
 
 * <date>2021-05-22</date> · [Game assets
 extraction](posts/2021-05-22_assets_extraction.md)
