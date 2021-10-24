@@ -1,6 +1,6 @@
 ## Posts · [Feed](https://github.com/obsiwitch/obsiwitch/commits/main.atom)
 
-* 2021-10-22 · [Static blog generation](posts/2021-10-22_blog.md)
+* 2021-10-22 · [Blog iterations](posts/2021-10-22_blog.md)
 * 2021-05-22 · [Game assets extraction](posts/2021-05-22_assets_extraction.md)
 * 2020-09-04 · [Automate downloads](posts/2020-09-04_webscraping.md)
 * 2020-04-11 · [File tags](posts/2020-04-11_tags.md)
