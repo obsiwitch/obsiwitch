@@ -1,4 +1,4 @@
-## Posts · [Feed](https://github.com/obsiwitch/obsiwitch/commits/main.atom)
+## [Posts](https://github.com/obsiwitch/obsiwitch/tree/main/posts) · [Feed](https://github.com/obsiwitch/obsiwitch/commits/main.atom)
 
 * 2021-10-22 · [Blog iterations](posts/2021-10-22_blog.md)
 * 2021-05-22 · [Game assets extraction](posts/2021-05-22_assets_extraction.md)
