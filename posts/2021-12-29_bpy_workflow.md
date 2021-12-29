@@ -45,8 +45,9 @@ I've set up 2 keyword bookmarks in Firefox to quickly search the Python document
 ```py
 def delete_data():
     for prop_collection in (
-        bpy.data.actions, bpy.data.cameras, bpy.data.lights, bpy.data.materials,
-        bpy.data.meshes, bpy.data.objects, bpy.data.collections, bpy.data.images
+        bpy.data.actions, bpy.data.armatures, bpy.data.cameras,
+        bpy.data.lights, bpy.data.materials, bpy.data.meshes,
+        bpy.data.objects, bpy.data.collections, bpy.data.images
     ):
         for item in prop_collection:
             prop_collection.remove(item)
