@@ -1,5 +1,6 @@
 ## [Posts](https://github.com/obsiwitch/obsiwitch/tree/main/posts) · [Feed](https://github.com/obsiwitch/obsiwitch/commits/main.atom)
 
+* 2022-12-21 · [Steam Deck controller remapping](posts/2022-12-21_sdmap.md)
 * 2021-12-29 · [Blender scripting workflow](posts/2021-12-29_bpy_workflow.md)
 * 2021-10-22 · [Blog iterations](posts/2021-10-22_blog.md)
 * 2021-05-22 · [Game assets extraction](posts/2021-05-22_assets_extraction.md)
